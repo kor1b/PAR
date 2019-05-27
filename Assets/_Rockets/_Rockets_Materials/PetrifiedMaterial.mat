@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PetrifiedMaterial
+  m_Shader: {fileID: 4800000, guid: e285e701385178646a7adb7bd684254b, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_9584F2F0:
+        m_Texture: {fileID: 2800000, guid: c4aea23a880363a4fa234108d87b743f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_4E0AD979: 0.6
+    - Vector1_8D80CD35: 0
+    - Vector1_9BBEAFB: 0.5
+    - Vector1_EACC936B: 1
+    m_Colors:
+    - Color_5EDC768F: {r: 0, g: 0, b: 0, a: 0}
+    - Color_85C989BF: {r: 0.4431373, g: 0.2745098, b: 0.2745098, a: 0}
+    - Color_88D09E67: {r: 0.6509805, g: 0.1635972, b: 0.1635972, a: 0}

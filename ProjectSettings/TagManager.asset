@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Checkpoint
+  - Border
+  - MenuLogic
+  - GravityOn
+  - GravityOff
+  - SpeedUp
+  - SwitchAgent
+  - Enemy
+  - CheckForFullLoop
+  - Instantiated
+  - Explosion
+  - PlayerAnim
+  - Island
+  - IslandColliders
+  - Nose
+  - SandStorm
+  - EnemyNose
+  - Target
+  - Bonuses
+  - Lightnings
+  - HealthBonus
+  - PlayerHealth
+  - PauseScreen
+  - EnemyHealth
+  - ComeBackText
+  - TargetLost
+  - FireSystem
+  - Joystick
+  - PlayerShield
+  - PlayerParent
+  - playerBullet
+  - SecondBoss
+  - EnemyShield
+  - enemyEmitter
+  - FirstBoss
+  - Meteor
+  - ThirdBoss
+  - Shadow
+  - DoneMeteor
+  - FirstBossParent
+  - FrostMeteor
+  - ThirdBossMissile
+  - MagmaMeteor
+  - DoneMagmaMetor
+  - ThirdPlanet
+  - SecondBossParent
+  - PlayerMissile
+  - FirstBossBullet
+  - SecondPlanet
+  - DoneFrostMeteor
+  - PlanetSurface
+  - SecondLevel
+  - ThirdLevel
+  - FirstPlanet
+  - FirstLevel
+  - SecondBossMissile
+  - SecondBossBullet
+  - ThirdBossBullet
+  - PetrifiedEffect
+  - ReloadSlider
+  - FrostEffect
+  - PlayerHealthBar
+  - EnemyShieldBar
+  - EnemyHealthBar
+  - PlayerShieldBar
+  - Timer
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Car
+  - Road
+  - Border
+  - Meteor
+  - Ship
+  - Shootable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
