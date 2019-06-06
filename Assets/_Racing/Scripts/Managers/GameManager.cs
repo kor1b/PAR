@@ -142,12 +142,9 @@ namespace Racing
 		{
 			for (int i = 0; i < cars.Length; i++)
 			{
-				Debug.Log(carsCarSystem[i].name);
 				//if car win the racing
 				if (cars[i].score == winScore)
 				{
-					Debug.Log(cars[i].name + " Wins");
-
 					//set game winner
 					if (gameWinner == null)
 						gameWinner = cars[i];

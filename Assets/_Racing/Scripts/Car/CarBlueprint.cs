@@ -40,7 +40,9 @@ namespace Racing
 		//increase score and call UIManger method
 		public int UpdateScore()
 		{
+			print(gameObject.name + " " + score);
 			score++;
+			print(gameObject.name + " " + score);
 			UIManager.Instance.UpdateScore(scoreText, score);
 
 			return score;

@@ -91,14 +91,13 @@ namespace Racing
 			//if our distance is less than switchCheckpointDistance
 			if ((_transform.position - enemyCheckpointTarget.position).sqrMagnitude <= switchCheckpointDistance * switchCheckpointDistance)
 			{
-				Debug.Log(enemyCheckpointTargetIndex);
 				//infinity cicle, in the end we will back to first element of array
 				enemyCheckpointTargetIndex = (enemyCheckpointTargetIndex + 1) % checkpointsPosition.Length;
 				enemyCheckpointTarget = checkpointsPosition[enemyCheckpointTargetIndex];
 			}
 		}
 
-		public new void OnTriggerEnter(Collider other)
+		private void OnTriggerEnter(Collider other)
 		{
 			if (other.CompareTag("SwitchAgent"))
 			{
@@ -109,7 +108,7 @@ namespace Racing
 			}
 		}
 
-		public new void OnTriggerExit(Collider other)
+		private void OnTriggerExit(Collider other)
 		{
 			if (other.CompareTag("SwitchAgent"))
 			{

@@ -67,5 +67,15 @@ namespace Racing
 				turnInputValue = side;
 			}
 		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			return;
+		}
+
+		//private void OnTriggerExit(Collider other)
+		//{
+		//	//return;
+		//}
 	}
 }

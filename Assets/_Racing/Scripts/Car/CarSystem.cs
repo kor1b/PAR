@@ -48,6 +48,7 @@ namespace Racing
 
 		protected void Awake()
 		{
+			//cash
 			_transform = GetComponent<Transform>();
 			m_Rigidbody = GetComponent<Rigidbody>();
 			carStats = GetComponent<CarBlueprint>();
@@ -62,10 +63,7 @@ namespace Racing
 			toGroundDistance = carStats.toGroundDistance;
 			toBorderDistance = carStats.toBorderDistance;
 
-			
-
 			movingSpeed = normalMovingSpeed;
-
 
 			roadLayerMask = LayerMask.GetMask("Road");
 			borderLayerMask = LayerMask.GetMask("Border");
@@ -80,10 +78,6 @@ namespace Racing
 				checkpointsPosition[i] = checkpointsHolder.GetChild(i);
 			}
 			lastCheckpointPos = checkpointsPosition[0];
-
-			//cash
-			_transform = GetComponent<Transform>();
-
 		}
 
 		private void OnEnable()
@@ -113,7 +107,7 @@ namespace Racing
 		}
 
 		//slowdown car
-		public void SlowdownCar()
+		void SlowdownCar()
 		{
 			//until the some speed (0.4) we slowdown the car
 			if (movementInputValue > 0.4f)
@@ -206,14 +200,13 @@ namespace Racing
 			movingSpeed = normalMovingSpeed;
 		}
 
-		public void OnTriggerEnter(Collider other)
+		private void OnTriggerEnter(Collider other)
 		{
 			//check for enter the checkpoint
 			//проверка на вход в чекпоинт
 			if (other.CompareTag("Checkpoint"))
 			{
 				lastCheckpointPos = other.transform;
-				Debug.Log(other.name);
 			}
 
 			//set point on the middle of the loop to check did the player complete a loop
@@ -233,12 +226,13 @@ namespace Racing
 			}
 		}
 
-		public void OnTriggerExit(Collider other)
+		private void OnTriggerExit(Collider other)
 		{
 			//check for enter the finish
 			//проверка на вход в финиш
 			if (other.CompareTag("Finish") && fullLoop)
 			{
+				print("FINISH!!!!!!!!!!!");
 				//update score and UI
 				carStats.UpdateScore();
 
@@ -251,7 +245,6 @@ namespace Racing
 
 			else if (other.CompareTag("Border"))
 			{
-				Debug.Log("EXIT");
 				Explosion();
 			}
 
