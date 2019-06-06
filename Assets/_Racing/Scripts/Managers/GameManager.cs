@@ -14,8 +14,8 @@ namespace Racing
 
 		CarBlueprint player;
 		CarBlueprint enemy;
-		[HideInInspector]
-		public CarBlueprint[] cars;                                     //link to enemy and player
+		[SerializeField]
+		CarBlueprint[] cars;                                     //link to enemy and player
 		CarSystem[] carsCarSystem;                                      //getcomponent of cars[]	
 		bool foundAllCars;                                              //check did we find player and enemy
 

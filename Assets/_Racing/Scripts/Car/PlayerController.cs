@@ -41,7 +41,7 @@ namespace Racing
 		private void Move()
 		{
 			// Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
-			Vector3 movement = _transform.forward * movementInputValue * movingSpeed * Time.deltaTime * 0.2f;
+			Vector3 movement = transform.forward * movementInputValue * movingSpeed * Time.deltaTime * 0.2f;
 
 			// Apply this movement to the rigidbody's position.
 			m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
@@ -67,15 +67,5 @@ namespace Racing
 				turnInputValue = side;
 			}
 		}
-
-		private void OnTriggerEnter(Collider other)
-		{
-			return;
-		}
-
-		//private void OnTriggerExit(Collider other)
-		//{
-		//	//return;
-		//}
 	}
 }

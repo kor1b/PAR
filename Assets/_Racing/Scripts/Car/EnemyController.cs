@@ -68,7 +68,7 @@ namespace Racing
 			else
 			{
 				//create a vector, that move us forward
-				Vector3 movement = _transform.forward * movementInputValue * movingSpeed * Time.deltaTime * 0.2f;
+				Vector3 movement = transform.forward * movementInputValue * movingSpeed * Time.deltaTime * 0.2f;
 				//move our player by this vector
 				m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
 			}
@@ -77,19 +77,19 @@ namespace Racing
 		void EnemyRotation()
 		{
 			//find our rotation vector
-			Vector3 direction = enemyCheckpointTarget.position - _transform.position;
+			Vector3 direction = enemyCheckpointTarget.position - transform.position;
 			//look for this vector
 			Quaternion lookRotation = Quaternion.LookRotation(direction);
 			//rotate our player smoothly
-			Vector3 rotation = Quaternion.Lerp(_transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+			Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
 			//apply our rotations by y coordinate
-			_transform.rotation = Quaternion.Euler(0, rotation.y, 0);
+			transform.rotation = Quaternion.Euler(0, rotation.y, 0);
 		}
 
 		void NextWaypoint()
 		{
 			//if our distance is less than switchCheckpointDistance
-			if ((_transform.position - enemyCheckpointTarget.position).sqrMagnitude <= switchCheckpointDistance * switchCheckpointDistance)
+			if ((transform.position - enemyCheckpointTarget.position).sqrMagnitude <= switchCheckpointDistance * switchCheckpointDistance)
 			{
 				//infinity cicle, in the end we will back to first element of array
 				enemyCheckpointTargetIndex = (enemyCheckpointTargetIndex + 1) % checkpointsPosition.Length;
@@ -97,8 +97,10 @@ namespace Racing
 			}
 		}
 
-		private void OnTriggerEnter(Collider other)
+		private new void OnTriggerEnter(Collider other)
 		{
+			base.OnTriggerEnter(other);
+
 			if (other.CompareTag("SwitchAgent"))
 			{
 				//increase car acceleration to any big num to delete a speed gap when controllers are switching
@@ -108,8 +110,10 @@ namespace Racing
 			}
 		}
 
-		private void OnTriggerExit(Collider other)
+		private new void OnTriggerExit(Collider other)
 		{
+			base.OnTriggerExit(other);
+
 			if (other.CompareTag("SwitchAgent"))
 			{
 				agent.acceleration = standardAgentAcceleration;

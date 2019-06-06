@@ -30,14 +30,14 @@ namespace Racing
 		GameObject egg;
 
 
-		//cash
+		//cache
 		Transform player;
 		Rigidbody playerRB;
 		Transform _transform;
 
 		private void Start()
 		{
-			//cash 
+			//cache
 			player = GameObject.FindGameObjectWithTag("Player").transform;
 			playerRB = player.GetComponent<Rigidbody>();
 			_transform = transform;

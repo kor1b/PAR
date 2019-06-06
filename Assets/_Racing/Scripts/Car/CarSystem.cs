@@ -9,10 +9,6 @@ namespace Racing
 {
 	public class CarSystem : MonoBehaviour
 	{
-		//public enum Character { Player, Enemy }
-		//[Tooltip("Кто наша машина: игрок или враг")]
-		//public Character character;                         //who is our car: player or enemy
-
 		public GameObject explosionPrefab;
 
 		[Header("CheckPoints")]
@@ -42,14 +38,12 @@ namespace Racing
 		private int borderLayerMask;                        // LayerMask for bord
 
 
-		//Cash
-		protected Transform _transform;
+		//Cache
 		protected CarBlueprint carStats;
 
 		protected void Awake()
 		{
-			//cash
-			_transform = GetComponent<Transform>();
+			//cache
 			m_Rigidbody = GetComponent<Rigidbody>();
 			carStats = GetComponent<CarBlueprint>();
 
@@ -78,6 +72,8 @@ namespace Racing
 				checkpointsPosition[i] = checkpointsHolder.GetChild(i);
 			}
 			lastCheckpointPos = checkpointsPosition[0];
+
+			explosionPrefab.SetActive(false);
 		}
 
 		private void OnEnable()
@@ -120,16 +116,16 @@ namespace Racing
 
 		protected bool OnGround()
 		{
-			return Physics.Raycast(_transform.position, -_transform.up, toGroundDistance, roadLayerMask);
+			return Physics.Raycast(transform.position, -transform.up, toGroundDistance, roadLayerMask);
 		}
 
 		//if car is turned turtle (lie on the side or roof)
 		//если машина перевернулась (лежит на боку либо на крыше)
 		protected bool OnTurnTurtle()
 		{
-			if (Physics.Raycast(_transform.position, _transform.up, turnTurtleDistance, roadLayerMask) ||
-				Physics.Raycast(_transform.position, _transform.right, turnTurtleDistance, roadLayerMask) ||
-				Physics.Raycast(_transform.position, -_transform.right, turnTurtleDistance, roadLayerMask))
+			if (Physics.Raycast(transform.position, transform.up, turnTurtleDistance, roadLayerMask) ||
+				Physics.Raycast(transform.position, transform.right, turnTurtleDistance, roadLayerMask) ||
+				Physics.Raycast(transform.position, -transform.right, turnTurtleDistance, roadLayerMask))
 			{
 				Explosion();
 				return true;
@@ -143,7 +139,7 @@ namespace Racing
 		{
 			RaycastHit hit;
 
-			if (Physics.Raycast(_transform.position, _transform.forward, out hit, toBorderDistance, borderLayerMask))
+			if (Physics.Raycast(transform.position, transform.forward, out hit, toBorderDistance, borderLayerMask))
 			{
 				SlowdownCar();
 				return true;
@@ -186,7 +182,7 @@ namespace Racing
 		}
 
 		//increase player speed coroutine
-		public IEnumerator ChangeSpeedBonusCoroutine(float speedUp, float effectTime, float backToNormalTime)
+		IEnumerator ChangeSpeedBonusCoroutine(float speedUp, float effectTime, float backToNormalTime)
 		{
 			movingSpeed += speedUp;
 			yield return new WaitForSeconds(effectTime);
@@ -200,7 +196,7 @@ namespace Racing
 			movingSpeed = normalMovingSpeed;
 		}
 
-		private void OnTriggerEnter(Collider other)
+		protected void OnTriggerEnter(Collider other)
 		{
 			//check for enter the checkpoint
 			//проверка на вход в чекпоинт
@@ -226,7 +222,7 @@ namespace Racing
 			}
 		}
 
-		private void OnTriggerExit(Collider other)
+		protected void OnTriggerExit(Collider other)
 		{
 			//check for enter the finish
 			//проверка на вход в финиш
@@ -247,9 +243,6 @@ namespace Racing
 			{
 				Explosion();
 			}
-
-			//back car acceleration to standard acceleration
-
 		}
 
 	}
