@@ -18,28 +18,26 @@ namespace Racing
 		NavMeshAgent agent;
 		EnemySkillController enemySkill;
 
-		new Transform _transform;
-		CarBlueprint carStats;
-
-		private void Start()
+		private new void Awake()
 		{
-			carStats = GetComponent<CarBlueprint>();
-			_transform = transform;
+			base.Awake();
+
 			agent = GetComponent<NavMeshAgent>();
 			enemySkill = GetComponent<EnemySkillController>();
 			standardAgentAcceleration = agent.acceleration;
+		}
 
+		private void Start()
+		{
 			switchCheckpointDistance = carStats.switchCheckpointDistance;
 
 			enemyCheckpointTarget = checkpointsPosition[0];
-
 		}
 
 		private void OnEnable()
 		{
 			agent.enabled = true;
 			enemySkill.enabled = true;
-
 		}
 
 		private void OnDisable()

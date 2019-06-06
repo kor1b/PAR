@@ -41,7 +41,7 @@ namespace Racing
 			slashAnim = slashText.GetComponent<Animator>();
 			timerTextAnim = timerText.GetComponent<Animator>();
 
-			SetControl(GameObject.FindWithTag("Player").GetComponent<CarSystem>());
+			SetControl(GameObject.FindWithTag("Player").GetComponent<PlayerController>());
 		}
 
 		//private void Update()
@@ -103,7 +103,7 @@ namespace Racing
 			slashAnim.Play(0);
 		}
 
-		public void SetControl(CarSystem car)
+		public void SetControl(PlayerController car)
 		{
 			EventTrigger leftButton = turnLeftButton.AddComponent<EventTrigger>();
 			EventTrigger rightButton = turnRightButton.AddComponent<EventTrigger>();
@@ -131,17 +131,17 @@ namespace Racing
 			rightButton.triggers.Add(entryUp);
 		}
 
-		void OnPointerDownRightDelegate(PointerEventData data, CarSystem car)
+		void OnPointerDownRightDelegate(PointerEventData data, PlayerController car)
 		{
 			car.TurnCar(1);
 		}
 
-		void OnPointerDownLeftDelegate(PointerEventData data, CarSystem car)
+		void OnPointerDownLeftDelegate(PointerEventData data, PlayerController car)
 		{
 			car.TurnCar(-1);
 		}
 
-		void OnPointerUpDelegate(PointerEventData data, CarSystem car)
+		void OnPointerUpDelegate(PointerEventData data, PlayerController car)
 		{
 			car.TurnCar(0);
 		}

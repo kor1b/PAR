@@ -6,6 +6,23 @@ namespace Racing
 {
 	public class PlayerController : CarSystem
 	{
+		private new void Update()
+		{
+			base.Update();
+
+			//turn car by press keys on keyboard
+			if (Input.GetKey(KeyCode.LeftArrow))
+				TurnCar(-1);
+			if (Input.GetKey(KeyCode.RightArrow))
+				TurnCar(1);
+
+
+			if (Input.GetKeyUp(KeyCode.LeftArrow))
+				turnInputValue = 0;
+			if (Input.GetKeyUp(KeyCode.RightArrow))
+				turnInputValue = 0;
+		}
+
 		private void FixedUpdate()
 		{
 			PlayerMovement();
@@ -13,8 +30,10 @@ namespace Racing
 
 		void PlayerMovement()
 		{
+			//if the car is not onturnturtle, we move
 			if (!OnTurnTurtle())
 				Move();
+			//if the car on the ground. we can turn
 			if (OnGround())
 				Turn();
 		}
@@ -38,6 +57,15 @@ namespace Racing
 
 			// Apply this rotation to the rigidbody's rotation.
 			m_Rigidbody.MoveRotation(m_Rigidbody.rotation * turnRotation);
+		}
+
+		//method to change turnInputValue from -1 (left) to 1 (right) to 0 (forward)
+		public void TurnCar(int side)
+		{
+			if (movementInputValue != 0)
+			{
+				turnInputValue = side;
+			}
 		}
 	}
 }

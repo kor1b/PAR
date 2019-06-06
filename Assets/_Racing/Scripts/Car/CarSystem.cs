@@ -46,8 +46,9 @@ namespace Racing
 		protected Transform _transform;
 		protected CarBlueprint carStats;
 
-		private void Awake()
+		protected void Awake()
 		{
+			_transform = GetComponent<Transform>();
 			m_Rigidbody = GetComponent<Rigidbody>();
 			carStats = GetComponent<CarBlueprint>();
 
@@ -61,7 +62,7 @@ namespace Racing
 			toGroundDistance = carStats.toGroundDistance;
 			toBorderDistance = carStats.toBorderDistance;
 
-			explosionPrefab.SetActive(false);
+			
 
 			movingSpeed = normalMovingSpeed;
 
@@ -82,6 +83,7 @@ namespace Racing
 
 			//cash
 			_transform = GetComponent<Transform>();
+
 		}
 
 		private void OnEnable()
@@ -95,26 +97,12 @@ namespace Racing
 			AccelerateCar();
 		}
 
-		private void Update()
+		protected void Update()
 		{
 			movementInputValue = Mathf.Clamp(movementInputValue, 0, 1);
 			LeanOnBorder();
 
 			lapsTime += Time.deltaTime;
-
-			//if (character == Character.Enemy)
-			//	return;
-
-			if (Input.GetKey(KeyCode.LeftArrow))
-				TurnCar(-1);
-			if (Input.GetKey(KeyCode.RightArrow))
-				TurnCar(1);
-
-
-			if (Input.GetKeyUp(KeyCode.LeftArrow))
-				turnInputValue = 0;
-			if (Input.GetKeyUp(KeyCode.RightArrow))
-				turnInputValue = 0;
 		}
 
 		//accelerate our car after stop/slowdown
@@ -157,7 +145,7 @@ namespace Racing
 
 		//if car is lean on boarder
 		//если машина уперлась в стену
-		bool LeanOnBorder()
+		protected bool LeanOnBorder()
 		{
 			RaycastHit hit;
 
@@ -169,14 +157,6 @@ namespace Racing
 
 			AccelerateCar();
 			return false;
-		}
-
-		public void TurnCar(int side)
-		{
-			if (movementInputValue != 0)
-			{
-				turnInputValue = side;
-			}
 		}
 
 		//back to track if our car is off track
