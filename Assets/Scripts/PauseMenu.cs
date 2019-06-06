@@ -19,6 +19,7 @@ public class PauseMenu : MonoBehaviour
 	{
 		Time.timeScale = 0;
 
+		//if (Racing.GameManager.Instance?)
 		Racing.GameManager.Instance.StopGame();
 	}
 
