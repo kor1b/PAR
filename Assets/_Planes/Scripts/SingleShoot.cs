@@ -6,39 +6,38 @@ namespace Planes
 {
     public class SingleShoot : MonoBehaviour
     {
-        [SerializeField]
-        [Tooltip("Урон от одного выстрела")]
+        [SerializeField] [Tooltip("Урон от одного выстрела")]
         private int damagePerShot = 5; //урон
-        [SerializeField]
-        [Tooltip("Радиус выстрела")]
+        [SerializeField] [Tooltip("Радиус выстрела")]
         private float range = 50f; //радиус
-
-        //просчет выстрела
+        [SerializeField] [Tooltip("Точка, из которой стреляем")]
         private Transform _shootPoint; //точка, из которой стреляем
+        [Header("Graphics")]
+        //графика
+        [SerializeField]
+        private ParticleSystem _shootParticles; //анимация выстрела
+        [SerializeField]
+        private LineRenderer _shootLine; //видимый луч выстрела
+        [SerializeField]
+        private Light _shootLight; //свет при выстреле
+        
+        //просчет выстрела
         private Ray _shootRay; //луч-направление выстрела
         private RaycastHit shootHit; //для сбора информации при попадании
         private int shootableMask; //слой, чтобы определить объекты, в которые можно стрелять
 
-        //графика
-        private ParticleSystem _shootParticles; //анимация выстрела
-        private LineRenderer _shootLine; //видимый луч выстрела
-        private Light _shootLight; //свет при выстреле
-
+        [Space]
         //автонаведение
+        [SerializeField] [Tooltip("Этот персонаж")]
+        private CharacterPrint thisCharacterPrint; //для определения персонажа и его врага
         private Transform _enemy; //для отслеживания положения врага
         private float aimRange; //допустимый поворот
         private Vector3 rotation; //поворот, необходимый для наведения
-        private CharacterPrint thisCharacterPrint; //для определения персонажа и его врага
 
         void Awake()
         {
             shootableMask = LayerMask.GetMask("Shootable");
-            _shootPoint = GetComponent<Transform>();
             _shootRay = new Ray();
-            _shootParticles = GetComponent<ParticleSystem>();
-            _shootLine = GetComponent<LineRenderer>();
-            _shootLight = GetComponent<Light>();
-            thisCharacterPrint = GetComponentInParent<CharacterPrint>();
             aimRange = thisCharacterPrint.aimRange;
         }
 

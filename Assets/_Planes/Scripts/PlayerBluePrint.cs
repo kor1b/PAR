@@ -16,13 +16,11 @@ namespace Planes
             _gunCharge = GameObject.FindWithTag("FireSystem").GetComponent<Slider>();
             _gunCharge.maxValue = maxCharge;
             _gunCharge.value = maxCharge;
-            shootingPoints = GetComponentsInChildren<SingleShoot>();
 
             _sliderHealth = GameObject.FindWithTag("PlayerHealth").GetComponent<Slider>();
             _sliderHealth.maxValue = maxHealth;
             _sliderHealth.value = maxHealth;
             health = _sliderHealth.value;
-            _shootAudio = GetComponent<AudioSource>();
         }
 
         void Update()
@@ -78,7 +76,7 @@ namespace Planes
             timer = 0f; //обнуляем таймер
         }
 
-        public void FireButtonReleased()
+        public void FireButtonReleased() //контролирует аудио в зависимости от нажатия кнопки огонь
         {
             if (audioDurrability > audioMinDurrability)
             {
@@ -101,7 +99,7 @@ namespace Planes
             Destroy(explosion, 7f);
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other) //столкновение с другим самолетом
         {
             if (takeoffMode)
             {

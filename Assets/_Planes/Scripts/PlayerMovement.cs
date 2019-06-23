@@ -8,23 +8,23 @@ namespace Planes
         public float speed = 10f;
         [Tooltip("Скорость поворота")]
         public float rotationSpeed = 1f;
-
+        [SerializeField]
         private Transform _player; //позиция игрока
+        [SerializeField]
         private Transform _nose; //нос - точка, которая находится спереди самолета, и к которой он будет "стремиться"
-        private FixedJoystick _joystick; //джойстик - управление
+        [SerializeField]
         private Rigidbody _playerRigidbody; //для остановки посторонних вращений
+        [SerializeField] [Tooltip("Для получения данных о режиме взлета")]
+        CharacterPrint _characterPrint;
+
         //данные из джойстика
+        private FixedJoystick _joystick;
         private float horizontalMove;
         private float verticalMove;
 
-        CharacterPrint _characterPrint;
         void Awake()
         {
-            _player = GetComponent<Transform>();
             _joystick = GameObject.FindWithTag("Joystick").GetComponent<FixedJoystick>();
-            _nose = GameObject.FindWithTag("Nose").GetComponent<Transform>();
-            _playerRigidbody = GetComponent<Rigidbody>();
-            _characterPrint = GetComponent<CharacterPrint>();
         }
 
         void FixedUpdate()

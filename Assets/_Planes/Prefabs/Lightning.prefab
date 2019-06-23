@@ -60,8 +60,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minParts: 8
   maxParts: 20
-  offsetXYZ: 50
   enableTime: 4
+  offsetXYZ: 50
+  _thisPoint: {fileID: 8055422623529622127}
+  _trailRenderer: {fileID: 8055422623529622126}
+  _capsuleCollider: {fileID: 4389809357104867821}
+  _colliderObj: {fileID: 5589672105472984213}
+  _thisCollider: {fileID: 4389809357104867821}
 --- !u!1 &8055422623529622121
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,5 +218,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minParts: 8
   maxParts: 20
-  offsetXYZ: 200
   enableTime: 0.3
+  offsetXYZ: 200
+  _thisPoint: {fileID: 8055422623529622127}
+  _trailRenderer: {fileID: 8055422623529622126}
+  _capsuleCollider: {fileID: 4389809357104867821}
+  _colliderObj: {fileID: 5589672105472984213}

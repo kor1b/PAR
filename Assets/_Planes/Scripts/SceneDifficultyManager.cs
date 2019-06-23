@@ -17,8 +17,7 @@ namespace Planes
         private CharacterPrint playerScript;
         private GameObject islandCollider;
         private Transform moneyTarget;
-
-        GameObject controlButtons;
+        
         private void Awake()
         {
             #region Singleton

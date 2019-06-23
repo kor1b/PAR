@@ -21,7 +21,7 @@ MonoBehaviour:
     maxSimultaneousObjectTargets: 1
     useDelayedLoadingObjectTargets: 0
     version: 8.1.10
-    eulaAcceptedVersions: '{"Values":["7.5","8.0","8.1"]}'
+    eulaAcceptedVersions: '{"Values":["7.5","8.0","8.1","0.0","7.1","7.7","7.2","7.9"]}'
   digitalEyewear:
     cameraOffset: 0.06
     distortionRenderingLayer: 31
@@ -65,5 +65,5 @@ MonoBehaviour:
     autoStartTracker: 0
   webcam:
     deviceNameSetInEditor: Logitech HD Webcam C270
-    turnOffWebCam: 0
+    turnOffWebCam: 1
     renderTextureLayer: 30

@@ -22,33 +22,35 @@ namespace Planes
         private float deltaTimeDamage = 1f;
 
         [Header("Other Settings")]
-        //[SerializeField] [Tooltip("Единицы урона сферы")]
-        private float damage;
         [SerializeField] [Tooltip("Максимальная непрозрачность, которую достигает сфера")]
         private float maxAlphaOfSphere = 1f; //максимальная непрозрачность шара
+        //[SerializeField] [Tooltip("Единицы урона сферы")]
+        private float damage;
 
+        [Header("Components")]
+        [SerializeField]
         Transform _player; //для отслеживания позиции игрока
+        [SerializeField]
+        Transform _nose; //точка, с которой ведется прорисовка вспомогательной линии
+        [SerializeField]
+        LineRenderer _way; //вспомогательная линия для возвращения в сферу-зону
+
+        GameObject _comeBackText; //текст, оповещающий о вылете из сферы-зоны
         Material _sphere; //материал сферы для изменения его прозрачности
         float currentAlpha; //прозрачность в данный момент
-        
-        Transform _nose; //точка, с которой ведется прорисовка вспомогательной линии
-        LineRenderer _way; //вспомогательная линия для возвращения в сферу-зону
-        GameObject _comeBackText; //текст, оповещающий о вылете из сферы-зоны
 
         float timer; //подсчет времени
         float timeSinceLastDamage; //момент, когда урон наносился в последний раз
+        [SerializeField]
         PlayerBluePrint _playerScript; //для нанесения урона игроку
 
         void Awake()
         {
-            _player = GameObject.FindWithTag("Player").GetComponent<Transform>();
             _sphere = GetComponent<MeshRenderer>().material;
             currentAlpha =  _sphere.GetFloat("_alpha");
-            _nose = GameObject.FindWithTag("Nose").GetComponent<Transform>();
             _way = GetComponent<LineRenderer>();
             _comeBackText = GameObject.FindWithTag("ComeBackText");
             _comeBackText.SetActive(false);
-            _playerScript = GetComponentInParent<PlayerBluePrint>();
             damage = _playerScript.maxHealth / 25f;
         }
 

@@ -6,12 +6,8 @@ namespace Planes
 {
     public class LightningTrigger : Lightning
     {
+        [SerializeField]
         CapsuleCollider _thisCollider;
-
-        private void Awake()
-        {
-            _thisCollider = GetComponent<CapsuleCollider>();
-        }
 
         private void OnTriggerEnter(Collider other)
         {

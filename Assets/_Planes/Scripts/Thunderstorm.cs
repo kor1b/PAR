@@ -19,14 +19,13 @@ namespace Planes {
         float a = 0f;
         [SerializeField]
         float b = 2f;
-
+        [SerializeField] [Tooltip("Звук грома")]
         AudioSource _thunder;
         
         void Awake()
         {
             random = new System.Random();
             timeBeforeNext = (float)random.NextDouble() * (b - a) + a;
-            _thunder = GameObject.FindWithTag("Lightnings").GetComponent<AudioSource>();
         }
         
         void FixedUpdate()

@@ -16,6 +16,10 @@ namespace Planes
         private float damage;
         [SerializeField] [Tooltip("Промежутки времени, через которые наносится урон")]
         private float deltaTimeDamage;
+        [SerializeField]
+        private ParticleSystem _sandStorm; //визуальный эффект бури
+        [SerializeField]
+        private AudioSource _audio; //звук ветра
 
         private bool isStorming = false; //активна ли буря в данный момен
         private float timer = 0; //таймер
@@ -28,8 +32,6 @@ namespace Planes
         private PlayerBluePrint _playerScript; //для нанесения урона игрока
         private PlayerMovement _playerMovement; //для смены параметров игрока
         private FixedJoystick _joystick; //для смены параметров управления
-        private ParticleSystem _sandStorm; //визуальный эффект бури
-        private AudioSource _audio; //звук ветра
 
         //сохранить параметры игрока, чтобы вернуть их после конца бури
         private float standartSpeed;
@@ -47,8 +49,6 @@ namespace Planes
             standartSpeed = _playerMovement.speed;
             standartRotationSpeed = _playerMovement.rotationSpeed;
             random = new System.Random();
-            _sandStorm = GameObject.FindWithTag("SandStorm").GetComponent<ParticleSystem>();
-            _audio = _sandStorm.gameObject.GetComponent<AudioSource>();
         }
         
         void Update()

@@ -102,7 +102,7 @@ using Vuforia;
 
             //IsReady.Instance.CheckPlayers();
 
-            Planes.PauseMenu.Instance.targetLostScreen.SetActive(true);
+            Planes.PauseMenu.Instance.targetLostScreen.SetActive(false);
             Planes.PauseMenu.Instance.PauseOff();
         }
 
@@ -128,7 +128,6 @@ using Vuforia;
 			//if (Planes.PauseMenu.Instance.targetLostScreen != null)
             Planes.PauseMenu.Instance.targetLostScreen.SetActive(true);
             Planes.PauseMenu.Instance.PauseOn();
-
         }
 
         #endregion // PROTECTED_METHODS

@@ -17,14 +17,9 @@ namespace Planes
         //изначальные координаты острова
         public Vector3 IslandFirstCoordinates;
         public Vector3 IslandFirstRotation;
-
+        [SerializeField]
         private Animator animator;
-
-        private void Awake()
-        {
-            animator = GetComponentInParent<Animator>();
-        }
-
+        
         private void Update()
         {
             if (!GameManager.gameIsGoing)

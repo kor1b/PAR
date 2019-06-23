@@ -33,12 +33,16 @@ namespace Planes
         int minTimeBeforeStorm = 20;
         [SerializeField] [Tooltip("Максимальное время до начала грозы")]
         int maxTimeBeforeStorm = 80;
-
+        [SerializeField] [Tooltip("Позиция этого персонажа")]
         private Transform _enemy; //позиция персонажа
+        [SerializeField] [Tooltip("Нос")]
         private Transform _nose;
+        [SerializeField]
         private Rigidbody _enemyRigidbody; //для обнуления поворота после столкновения
-        private Transform _player; //отслеживаем положение игрока
+        [SerializeField] [Tooltip("Скрипт молний")]
         private Thunderstorm _thunderstorm; //скрипт молний
+
+        private Transform _player; //отслеживаем положение игрока
 
         private float timer; //таймер для подсчета времени между выстрелами/отображением эффектов
 
@@ -66,10 +70,6 @@ namespace Planes
         {
             isPlayer = false; //объект не является игроком
             bossNumber = 3; //третий босс
-            shootingPoints = GetComponentsInChildren<SingleShoot>();
-            _enemy = GetComponent<Transform>();
-            _enemyRigidbody = GetComponent<Rigidbody>();
-            _nose = GameObject.FindWithTag("EnemyNose").GetComponent<Transform>();
             _sliderHealth = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
             _sliderHealth.maxValue = maxHealth;
             _sliderHealth.value = maxHealth;
@@ -77,9 +77,7 @@ namespace Planes
             health = _sliderHealth.value;
             speed = standartSpeed;
             //_healthBonus = GameObject.FindWithTag("Bonuses");
-            _thunderstorm = GetComponent<Thunderstorm>();
             timeBeforeStorm = random.Next(minTimeBeforeStorm, maxTimeBeforeStorm);
-            _shootAudio = GetComponent<AudioSource>();
         }
 
         private void Start()

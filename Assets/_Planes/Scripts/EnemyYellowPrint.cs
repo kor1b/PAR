@@ -34,12 +34,16 @@ namespace Planes
         [SerializeField] [Tooltip("Максимальное время между началами песчаных бурь")]
         public int maxTimeBeforeNextSandStorm = 160;
 
+        [Header("Components")]
+        [SerializeField]
         private Transform _enemy; //позиция персонажа
+        [SerializeField]
         private Transform _nose;
+        [SerializeField]
         private Rigidbody _enemyRigidbody; //для обнуления поворота после столкновения
-        private Transform _player; //отслеживаем положение игрока
+        [SerializeField]
         private SandStorm sandStorm; //скрипт песчаной бури
-
+        private Transform _player; //отслеживаем положение игрока
         private float timer; //таймер для подсчета времени между выстрелами/отображением эффектов
 
         private float shootDelayTimer; //подсчет времени, когда можно стрелять после обнаружения игрока
@@ -60,19 +64,13 @@ namespace Planes
         {
             isPlayer = false; //объект не является игроком
             bossNumber = 2; //второй босс
-            shootingPoints = GetComponentsInChildren<SingleShoot>();
-            _enemy = GetComponent<Transform>();
-            _enemyRigidbody = GetComponent<Rigidbody>();
-            _nose = GameObject.FindWithTag("EnemyNose").GetComponent<Transform>();
             _sliderHealth = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
             _sliderHealth.maxValue = maxHealth;
             _sliderHealth.value = maxHealth;
-            sandStorm = GetComponent<SandStorm>();
             random = new System.Random();
             timeBeforeNextSandStorm = random.Next(minTimeBeforeNextSandStorm, maxTimeBeforeNextSandStorm);
             health = _sliderHealth.value;
             speed = standartSpeed;
-            _shootAudio = GetComponent<AudioSource>();
         }
 
         private void Start()

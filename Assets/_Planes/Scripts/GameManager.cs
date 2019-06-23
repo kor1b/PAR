@@ -8,41 +8,47 @@ namespace Planes
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] [Tooltip("Коэффициент, на который умножаются очки при победе")]
-        private int buttonPosition = 0; //положение кнопкок: 0 - джойстик слева, 1 - джойстик справа
-        
         public static GameManager instance = null;
 
-        private bool paused = false; //указывает, нажата ли пауза
-        private GameObject countdown;
+        [Header("For Pause Function")]
+        //таймер
+        [SerializeField] [Tooltip("Анимация текста таймера")]
         private Animator timerTextAnim;
+        [SerializeField] [Tooltip("Текст таймера")]
         private TextMeshProUGUI timerText;
-        private float startGameTime = 3f;
-        public static bool gameIsGoing = false;
-        public static bool countdownGameStarted = false;                //начался ли обратный отсчеt
-        //private GameObject _pauseScreen; //меню паузы
-        
+
+        private bool paused = false; //указывает, нажата ли пауза
+
+        [Header("Setting Menu Components")]
+        [SerializeField] [Tooltip("положение кнопкок: 0 - джойстик слева, 1 - джойстик справа")]
+        private int buttonPosition = 0; //положение кнопкок: 0 - джойстик слева, 1 - джойстик справа
+        [SerializeField] [Tooltip("Джойстик (для того, чтобы менять кнопки местами)")]
         private Transform _joystick; //доступ к джойстику
+        [SerializeField] [Tooltip("Кнопка огонь")]
         private Transform _fireSystem; //доступ к кнопке огонь
-        private float timer;
+        [SerializeField] [Tooltip("Выделенное положение кнопок")]
+        private Button left;
+        [SerializeField] [Tooltip("Выделенное положение кнопок")]
+        private Button right;
+        
+        private float startGameTime = 3f; //время, которое запускается игра (время, пока отсчитывается таймер)
+        public static bool gameIsGoing = false; //указывает, идет ли игра в данный момент
+        public static bool countdownGameStarted = false; //начался ли обратный отсчет
+               
+        private float timer; //таймер для отсчета таймера начала игры
 
         //итоги игры
-        public bool gameEnded = false;
+        [HideInInspector]
+        public bool gameEnded = false; //закончилась ли игра
         private int win; //результат игры: 0 - вышел в начале, 1 - победа, 2 - поражение
-        //public float score; //количество заработанных монет
-
-        public float timeOfGame = 0f;
+        private float timeOfGame = 0f; //длительность игры
         
-        public Button Left;
-        public Button Right;
-
-        CharacterPrint enemyInfo;
-        CharacterPrint playerInfo;
-        public int replay; //получить из PlayerPrefs
-        public float score;
-        public float lastHighScore; //из PlayerPrefs
-
-
+        //Подсчет монеток (не реализован до конца)
+        private CharacterPrint enemyInfo;
+        private CharacterPrint playerInfo;
+        private int replay; //получить из PlayerPrefs
+        private float lastHighScore; //из PlayerPrefs
+        
         private void Awake()
         {
             #region Singleton
@@ -55,17 +61,9 @@ namespace Planes
                 Destroy(gameObject);
             }
 			#endregion
-
-			//_pauseScreen = GameObject.FindWithTag("PauseScreen");
-			//_pauseScreen.SetActive(false);
+            
 			Time.timeScale = 1;
-            countdown = GameObject.FindWithTag("Timer");
-            timerTextAnim = countdown.GetComponent<Animator>();
-            timerText = countdown.GetComponent<TextMeshProUGUI>();
-            _joystick = GameObject.FindWithTag("Joystick").GetComponent<RectTransform>();
-            _fireSystem = GameObject.FindWithTag("FireSystem").GetComponent<RectTransform>();
-            timer = startGameTime;
-            if (PlayerPrefs.GetInt("SetControl") != buttonPosition)
+            if (PlayerPrefs.GetInt("SetControl") != buttonPosition) //если положение кнопок не соответсвует плеер префс, меняем их сразу
             {
                 //меняем местами кнопки
                 float xTemp = _joystick.position.x;
@@ -143,8 +141,8 @@ namespace Planes
 
         public void SetControl()
         {
-            Left.interactable = Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
-            Right.interactable = !Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
+            left.interactable = Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
+            right.interactable = !Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
         }
 
 
@@ -172,14 +170,13 @@ namespace Planes
                 Debug.Log("You won!");
             }
             gameEnded = true;
-            score = timeOfGame;
             //gameOverMenu.SetActive(true);
             //GameOverManager.Instance.SetValues(win, gameTime, CountCoins());
             //GameOverManager.Instance.SetPlanesPrefs(win);
             Debug.Log("Your Score: " + CountCoins());
         }
 
-        private int CountCoins ()
+        private int CountCoins () //подсчет монеток за уровень; не реализовано
         {
             int coins;
             float coefficient, lastHighScore;
@@ -230,7 +227,6 @@ namespace Planes
             return coins;
         }
 
-
         public IEnumerator StartCountdown()
         {
             Debug.Log("StartCountdown()");
@@ -257,9 +253,7 @@ namespace Planes
             countdownGameStarted = true;
 
             timer = startGameTime;
-
-            //_pauseScreen.SetActive(false);
-
+            
             yield return StartCoroutine(StartCountdown());
 
             //flag that game is started
@@ -276,11 +270,9 @@ namespace Planes
 
             //turn off the countdownTimer
             countdownGameStarted = false;
-
-            //_pauseScreen.SetActive(true);
         }
 
-        public void ExitGame()
+        public void ExitGame() //завершает игру; не реализовано
         {
             Debug.Log("Player exit");
             /* if (win == -1)

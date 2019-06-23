@@ -19,8 +19,8 @@ namespace Planes
         private Queue<GameObject> healthBonuses;
         private Queue<GameObject> lightnings;
         //родители объектов на пул
-        private Transform healthBonusesParent;
-        private Transform lightningsParent;
+        private GameObject healthBonusesParent;
+        private GameObject lightningsParent;
         
         void Awake()
         {
@@ -36,13 +36,18 @@ namespace Planes
             #endregion
 
             healthBonuses = new Queue<GameObject>(healthBonusAmount);
-            healthBonusesParent = GameObject.FindWithTag("Bonuses").GetComponent<Transform>();
+            healthBonusesParent = GameObject.FindWithTag("Bonuses");
             lightnings = new Queue<GameObject>(lightningsAmount);
-            lightningsParent = GameObject.FindWithTag("Lightnings").GetComponent<Transform>();
+            lightningsParent = GameObject.FindWithTag("Lightnings");
         }
 
         public GameObject GetHealthBonus(GameObject HealthBonus)
         {
+            if (healthBonusesParent == null)
+            {
+                Debug.Log("No parent for HealthBonus");
+                return null;
+            }
             foreach (GameObject healthBonus in healthBonuses)
             {
                 if (!healthBonus.activeInHierarchy)
@@ -53,13 +58,18 @@ namespace Planes
             }
             //если объект для переиспользования не найден - просто создаем новый и добавляем его в очередь
             GameObject prefabInstance = Instantiate(HealthBonus);
-            prefabInstance.transform.SetParent(healthBonusesParent);
+            prefabInstance.transform.SetParent(healthBonusesParent.transform);
             healthBonuses.Enqueue(prefabInstance);
             return prefabInstance;
         }
 
         public GameObject GetLinghning()
         {
+            if (healthBonusesParent == null)
+            {
+                Debug.Log("No parent for lightning");
+                return null;
+            }
             foreach (GameObject lightning in lightnings)
             {
                 if (!lightning.activeInHierarchy)
@@ -70,7 +80,7 @@ namespace Planes
             }
             //если объект для переиспользования не найден - просто создаем новый и добавляем его в очередь
             GameObject prefabInstance = Instantiate(Lightning);
-            prefabInstance.transform.SetParent(lightningsParent);
+            prefabInstance.transform.SetParent(lightningsParent.transform);
             lightnings.Enqueue(prefabInstance);
             return prefabInstance;
         }

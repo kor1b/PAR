@@ -22,9 +22,14 @@ namespace Planes
         [SerializeField] [Tooltip("Прекращает отдаляться от игрока только по достижению расстояния")]
         public float offsetCloseEnd = 10;
 
+        [Header("Plane's Components")]
+        [SerializeField] [Tooltip("Позиция персонажа")]
         private Transform _enemy; //позиция персонажа
+        [SerializeField] [Tooltip("Нос - точка, указывающая перед самолета")] 
         private Transform _nose;
+        [SerializeField] [Tooltip("Rigidbody для обнуления постороннего вращения после столновения")]
         private Rigidbody _enemyRigidbody; //для обнуления поворота после столкновения
+
         private Transform _player; //отслеживаем положение игрока
 
         float timer; //таймер для подсчета времени между выстрелами/отображением эффектов
@@ -40,9 +45,6 @@ namespace Planes
             isPlayer = false; //объект не является игроком
             bossNumber = 1; //первый босс
             shootingPoints = GetComponentsInChildren<SingleShoot>();
-            _enemy = GetComponent<Transform>();
-            _enemyRigidbody = GetComponent<Rigidbody>();
-            _nose = GameObject.FindWithTag("EnemyNose").GetComponent<Transform>();
             _sliderHealth = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
             _sliderHealth.maxValue = maxHealth;
             _sliderHealth.value = maxHealth;

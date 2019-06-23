@@ -17,11 +17,6 @@ namespace Planes
                 return;
             Instance = this;
             #endregion
-
-            //targetLostScreen = GameObject.FindWithTag("TargetLost");
-            banknote = targetLostScreen.GetComponent<Image>();
-            //banknote.sprite = //спрайт купюры
-            targetLostScreen.SetActive(false);
         }
 
         public void PauseOn()
