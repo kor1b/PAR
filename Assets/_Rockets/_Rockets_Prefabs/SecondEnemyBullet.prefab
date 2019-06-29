@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03f8dc0632a1a944b96157593e77174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   lifeDuration: 2
   player: {fileID: 112111498, guid: 8f91872caa4a0c345b3a2b0c83205f25, type: 3}
   enemy: {fileID: 7131438732031217851, guid: 1cc3fbd26d3a6a64bbe4dd1d2f7d3ed9, type: 3}

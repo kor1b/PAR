@@ -13,7 +13,7 @@ namespace Rockets
         RaycastHit MeteorFallOnPlace;    //Место падения
         int mask = 8;                    //Маска, слой для метеорита
 
-        public float distance = 150f;    //Дистанция спавна
+        public float distance = 10f;    //Дистанция спавна
 
         bool shadowFlag;                 //Флаг создания тени
 

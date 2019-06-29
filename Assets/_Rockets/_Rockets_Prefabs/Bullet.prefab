@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 8229745315883406381}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.005, y: 27.932, z: 0.974}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.1}
+  m_LocalScale: {x: 0.0025, y: 0.0025, z: 0.025}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03f8dc0632a1a944b96157593e77174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 5
   lifeDuration: 2
   player: {fileID: 112111498, guid: 8f91872caa4a0c345b3a2b0c83205f25, type: 3}
   enemy: {fileID: 1620346394, guid: 209c1c42c4fa67b499d32b1accb1b150, type: 3}
@@ -146,10 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 254cea9b17461494a90eeb12c1de5c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractorPlanet: {fileID: 284007881896018834, guid: e73d09b87cfcf2b488a88dabc4505af4,
+  attractorPlanet: {fileID: 2649931403649357990, guid: d7c4b9edfbf198248a3dceb4fd37ef82,
     type: 3}
   gameController: {fileID: 0}
-  NumberOfLevel: 0
+  NumberOfLevel: 1
 --- !u!65 &5543477125426531670
 BoxCollider:
   m_ObjectHideFlags: 0

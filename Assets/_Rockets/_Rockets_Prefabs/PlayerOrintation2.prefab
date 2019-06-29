@@ -550,7 +550,7 @@ Transform:
   m_GameObject: {fileID: 4674053759245099582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 14, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children:
   - {fileID: 599766641823643103}
   m_Father: {fileID: 0}
@@ -863,23 +863,25 @@ MonoBehaviour:
   ShootEmitter: {fileID: 111625302534187537}
   RightMissileEmitter: {fileID: 538889430558755208}
   LeftMissileEmitter: {fileID: 2414385208217888191}
-  BulletPrefab: {fileID: 0}
+  BulletPrefab: {fileID: 8229745315883406381, guid: 0607642327c79fe4c858b7233eb6892a,
+    type: 3}
   ShieldPrefab: {fileID: 2234940007247657240}
-  MissilePrefab: {fileID: 0}
+  MissilePrefab: {fileID: 2961741451068695357, guid: af052133ee3ccf347b8900308b9ce1f4,
+    type: 3}
   Enemy: {fileID: 0}
   FrostAnimationEffect: {fileID: 0}
   PetrifiedAnimationEffect: {fileID: 0}
   gameController: {fileID: 0}
   freezeRotation: 0
   Win: 0
-  moveSpeed: 4
+  moveSpeed: 2
   MissilesStorage: 3
-  currentMissileAmount: 0
-  playerStartHealth: 115
+  currentMissileAmount: 3
+  playerStartHealth: 100
   playerStartShield: 100
-  ShieldRecoveryDelay: 12
-  ShieldRecoveryValue: 0.15
-  startBetweenShots: 0.7
+  ShieldRecoveryDelay: 5
+  ShieldRecoveryValue: 0.1
+  startBetweenShots: 2
 --- !u!1 &5660364852281306796
 GameObject:
   m_ObjectHideFlags: 0

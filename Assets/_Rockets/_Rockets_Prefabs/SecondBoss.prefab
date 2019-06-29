@@ -73,28 +73,28 @@ MonoBehaviour:
   MissilePrefab: {fileID: 8769091176889790865, guid: ef1fb643c0e53ee4781933562e655c59,
     type: 3}
   enemyparent: {fileID: 0}
-  freezeProbabilityInPercent: 15
-  freezeDuration: 3
-  freezeDamage: 0.1
-  missileProbabilityInPercent: 50
-  enemyHealth: 100
-  enemyShield: 100
+  freezeProbabilityInPercent: 0
+  freezeDuration: 0
+  freezeDamage: 0
+  missileProbabilityInPercent: 0
+  enemyHealth: 0
+  enemyShield: 0
   BulletPrefab: {fileID: 4770692278633209514, guid: f52c3c0d4fbf811408d2a9c81965a9e2,
     type: 3}
   ShieldPrefab: {fileID: 2017478817043638662}
-  startBetweenShots: 1.5
+  startBetweenShots: 0
   castFreeze: 0
   launchMissile: 0
   launchDeathStorm: 0
-  NumberOfLevel: 1
+  NumberOfLevel: 0
   RandomDigit1: 0
   RandomDigit2: 0
   RandomDigit3: 0
   ShootActive: 0
-  speed: 1.8
-  rotationSpeed: 6
-  stoppingDistance: 2.6
-  retreatingDistance: 1.8
+  speed: 0
+  rotationSpeed: 0
+  stoppingDistance: 0
+  retreatingDistance: 0
 --- !u!1 &2017478817043638662
 GameObject:
   m_ObjectHideFlags: 0

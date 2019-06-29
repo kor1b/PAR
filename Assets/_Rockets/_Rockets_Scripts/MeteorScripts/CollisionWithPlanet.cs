@@ -38,7 +38,7 @@ namespace Rockets
             if (gameController.Win != 1)
                 if (NumberOfLevel == 0)
                 {
-                    if (GameObject.FindGameObjectWithTag("FirstBoss").activeInHierarchy)
+                    if (GameObject.FindGameObjectWithTag("FirstBoss").activeSelf)
                     {
                         enemy = GameObject.FindWithTag("FirstBoss").GetComponent<EnemyRotationScript>();
                         BossTag = "FirstBoss";

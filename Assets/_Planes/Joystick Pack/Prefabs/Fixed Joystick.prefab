@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2929252283123773951}
   m_Layer: 5
   m_Name: Fixed Joystick
-  m_TagString: Untagged
+  m_TagString: Joystick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,8 +90,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handleRange: 1
   deadZone: 0
+  axisOptions: 0
+  snapX: 0
+  snapY: 0
   background: {fileID: 2929252283123773938}
-  handle: {fileID: 2929252285020697096}
+  handle: {fileID: 0}
 --- !u!1 &2929252285020697097
 GameObject:
   m_ObjectHideFlags: 0
