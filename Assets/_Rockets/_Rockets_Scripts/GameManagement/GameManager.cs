@@ -232,10 +232,10 @@ namespace Rockets
             {
                 if (!OneTimeFlag1)
                 {
-                    tempOriginPlayerSpeed = Player.GetComponent<PlayerRotationScript>().moveSpeed;
+                    tempOriginPlayerSpeed = Player.GetComponent<PlayerRotationScript>().speed;
                     tempOriginEnemySpeed = EnemyScript.speed;
 
-                    Player.GetComponent<PlayerRotationScript>().moveSpeed = 0f;
+                    Player.GetComponent<PlayerRotationScript>().speed = 0f;
                     EnemyScript.speed = 0f;
 
                     EnemyScript.ShootActive = false;
@@ -253,7 +253,7 @@ namespace Rockets
             {
                 if (!OneTimeFlag2)
                 {
-                    Player.GetComponent<PlayerRotationScript>().moveSpeed = tempOriginPlayerSpeed;
+                    Player.GetComponent<PlayerRotationScript>().speed = tempOriginPlayerSpeed;
                     EnemyScript.speed = tempOriginEnemySpeed;
                     EnemyScript.ShootActive = true;
                     Player.GetComponent<PlayerRotationScript>().freezeRotation = false;

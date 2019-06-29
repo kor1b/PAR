@@ -94,22 +94,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c92ea64ae74034a8c6e126fd9d14e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossTarget: {fileID: 0}
-  PlayerTarget: {fileID: 0}
-  PlayerPrefab: {fileID: 459515678, guid: 8f91872caa4a0c345b3a2b0c83205f25, type: 3}
-  EnemyPrefab: {fileID: 0}
-  gameController: {fileID: 0}
-  moveSpeed: 5
-  rotationSpeed: 3
+  moveSpeed: 1
+  rotationSpeed: 2
   damage: 20
   shieldDamageBoost: 3
-  lifeTime: 8
-  searchTimeDelay: 0.5
-  searchingTime: 2
-  NumberOfLevel: 0
-  BossTag: 
+  lifeTime: 4
+  searchTimeDelay: 0.3
+  searchingTime: 1.5
   searchFlag: 0
-  BossMissile: 0
+  BossTag: 
 --- !u!114 &3813002808613101053
 MonoBehaviour:
   m_ObjectHideFlags: 0

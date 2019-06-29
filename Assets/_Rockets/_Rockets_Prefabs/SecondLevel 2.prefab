@@ -166,6 +166,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3874581100925960355, guid: db8a7713a291e3e45984087bf7f90243,
+        type: 3}
+      propertyPath: gravity
+      value: -12
+      objectReference: {fileID: 0}
     - target: {fileID: 3874581100925960352, guid: db8a7713a291e3e45984087bf7f90243,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -240,11 +245,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Radius
       value: 9.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 3874581100925960355, guid: db8a7713a291e3e45984087bf7f90243,
-        type: 3}
-      propertyPath: gravity
-      value: -12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db8a7713a291e3e45984087bf7f90243, type: 3}
@@ -428,6 +428,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
         type: 3}
+      propertyPath: startHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
+      propertyPath: startShield
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
+      propertyPath: startSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
+      propertyPath: startRotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
+      propertyPath: startBetweenShots
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
+        type: 3}
       propertyPath: freezeProbabilityInPercent
       value: 20
       objectReference: {fileID: 0}
@@ -444,32 +479,7 @@ PrefabInstance:
     - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
         type: 3}
       propertyPath: missileProbabilityInPercent
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
-        type: 3}
-      propertyPath: enemyHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
-        type: 3}
-      propertyPath: enemyShield
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
-        type: 3}
-      propertyPath: startBetweenShots
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
-        type: 3}
-      propertyPath: rotationSpeed
-      value: 10
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1100632579880130859, guid: 45eb9866005990848be734ca6ccd281b,
         type: 3}
@@ -500,6 +510,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FrostPlanet
+      objectReference: {fileID: 0}
+    - target: {fileID: 2649931403649357990, guid: d7c4b9edfbf198248a3dceb4fd37ef82,
+        type: 3}
+      propertyPath: gravity
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 85765299071883579, guid: d7c4b9edfbf198248a3dceb4fd37ef82,
         type: 3}
@@ -595,11 +610,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsKinematic
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2649931403649357990, guid: d7c4b9edfbf198248a3dceb4fd37ef82,
-        type: 3}
-      propertyPath: gravity
-      value: -4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7c4b9edfbf198248a3dceb4fd37ef82, type: 3}
