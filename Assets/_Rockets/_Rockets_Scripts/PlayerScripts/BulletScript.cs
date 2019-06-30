@@ -7,6 +7,7 @@ namespace Rockets
 {
     public class BulletScript : BulletFactory
     { 
+        [HideInInspector]
         public EnemyRotationScript enemy;
         void Awake()
         {

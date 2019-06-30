@@ -6,7 +6,7 @@ namespace Rockets
 {
     public class PlayerGravityBody : MonoBehaviour
     {
-
+        [HideInInspector]
         public PlanetScript attractorPlanet;  //Тело к которому будет питягиваться наш объект
 
         private Transform playerTransform;

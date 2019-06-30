@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadowPrefab: {fileID: 194993404560667651, guid: 44905fa1eb9e5e241bfa00f742f2da7c,
     type: 3}
-  distance: 10
+  distance: 5
 --- !u!136 &3588122103213242873
 CapsuleCollider:
   m_ObjectHideFlags: 0

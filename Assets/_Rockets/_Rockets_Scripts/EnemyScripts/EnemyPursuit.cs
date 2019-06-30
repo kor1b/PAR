@@ -7,6 +7,7 @@ namespace Rockets
 {
     public class EnemyPursuit : Movement
     {
+        [HideInInspector]
         public Rigidbody player;
         Rigidbody rb;
         Transform tr;

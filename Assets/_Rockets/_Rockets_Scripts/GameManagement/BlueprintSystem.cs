@@ -18,14 +18,16 @@ namespace Rockets
     {
         [Header("Health and Shields")]
         public float startHealth;
-        public float health;
+        protected float health;
         public float startShield;
-        public float shield;
+        protected float shield;
 
         [Header("Movement")]
         public float startSpeed;
+        [HideInInspector]
         public float speed;
         public float startRotationSpeed;
+        [HideInInspector]
         public float rotationSpeed;
 
         [Header("Shooting")]
@@ -89,6 +91,7 @@ namespace Rockets
         [Header("Behaviour")]
         public float searchTimeDelay;
         public float searchingTime;
+        [HideInInspector]
         public bool searchFlag;
         protected float searchTimer;
         protected float searchingTimer;

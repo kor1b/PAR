@@ -7,12 +7,14 @@ namespace Rockets
 {
     public class PlayerRotationScript : ShipFactory
     {
-
+        [HideInInspector]
         public Joystick joystick;
 
         private Slider reloadSlider;
 
+        [HideInInspector]
         public FrostEffectBehaviour FrostAnimationEffect;   //Связь со скриптом умения 2-го босса -- "Заморозка"
+        [HideInInspector]
         public PetrifiedEffectBehaviour PetrifiedAnimationEffect; //Связь со скриптом умения 3-го босса -- "Каменные Оковы"
 
         private Vector3 currentRotateDirection;
@@ -29,15 +31,18 @@ namespace Rockets
         private float petrifyDamagePerFrame;
         private bool petrifyRotation;
 
+        [HideInInspector]
         public int Win;                                   //Опреелитель победы, поражения, ничьи или выхода из боя
 
-        public float ShieldRecoveryDelay;                 //Время которое игрок должен продержаться без получения урона, для восстановления щитов
-        public float ShieldRecoveryValue;                 //Значение, на которое восполняется щит за каждый фрейм.
+        private float ShieldRecoveryDelay = 5f;                 //Время которое игрок должен продержаться без получения урона, для восстановления щитов
+        private float ShieldRecoveryValue = 0.1f;                 //Значение, на которое восполняется щит за каждый фрейм.
 
         private bool Reloaded = true;
 
-        public int currentMissileAmount;
-        public int startMissileAmount;
+
+        private int currentMissileAmount;
+        [HideInInspector]
+        public int startMissileAmount = 3;
         void Awake()
         {
             gameManager = GameManager.Instance;

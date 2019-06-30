@@ -13,16 +13,17 @@ namespace Rockets
 
         public int missileProbabilityInPercent;  //Вероятность запуска ракеты            
 
-        public bool castFreeze;            //Сигнал кастования умения "Заморозка"
-        public bool launchMissile;         //Сигнал запуска ракеты
-        public bool launchDeathStorm;      //Muhahahahahahah
+
+        private bool castFreeze;            //Сигнал кастования умения "Заморозка"
+        private bool launchMissile;         //Сигнал запуска ракеты
+        private bool launchDeathStorm;      //Muhahahahahahah
 
         private EnemyPursuit enemyPursuit;         //Скрипт Бати
         private PlayerRotationScript playerStats;
 
-        public int RandomDigit1;                    //Случайные числа для иллюзии вероятности
-        public int RandomDigit2;
-        public int RandomDigit3;
+        private int RandomDigit1;                    //Случайные числа для иллюзии вероятности
+        private int RandomDigit2;
+        private int RandomDigit3;
 
         //Переменные для хранения изначальных характеристик
         private float originStoppingDistance;
@@ -32,6 +33,7 @@ namespace Rockets
         private float originMissileProbability;
         private float originFreezeProbability;
 
+        [HideInInspector]
         public bool ShootActive;
 
         public float stoppingDistance;

@@ -6,7 +6,7 @@ namespace Rockets
 {
     public class EnemyMissileBehaviour : MissileFactory
     {
-        public PlayerRotationScript PlayerTarget;
+        private PlayerRotationScript PlayerTarget;
 
         void Start()
         {

@@ -10,7 +10,9 @@ namespace Rockets
         public GameObject Explosion;     //Еффект при столкновении с игроком
         public GameObject Shadow;        //Тень
 
+        [HideInInspector]
         public PlayerRotationScript player;
+        [HideInInspector]
         public EnemyRotationScript enemy;
         private GameManager gameController;
 
@@ -19,6 +21,7 @@ namespace Rockets
 
         public List<ParticleSystem> trails;  //Дым, огонь и другие "цепные" эффекты
 
+        [HideInInspector]
         public bool MeteorDestroyed;
 
 
