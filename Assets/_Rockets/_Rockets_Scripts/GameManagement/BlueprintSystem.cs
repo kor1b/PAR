@@ -5,14 +5,11 @@ using UnityEngine.UI;
 
 namespace Rockets
 {
-    public abstract class BlueprintSystem : MonoBehaviour
-    {
-        
-
-    }
-
     public abstract class Movement : MonoBehaviour
     {
+        [HideInInspector]
+        public float speed;
+        protected Vector3 movement;
         public abstract void Rotate();
         public abstract void Move();
     }
@@ -36,24 +33,24 @@ namespace Rockets
         protected float timeBetweenShots;
         public Transform RightMissileEmitter;  //Ракетный барабан правого борта
         public Transform LeftMissileEmitter;   //Ракетный барабан левого борта
-        public GameObject MissilePrefab;
+        public Transform shootEmitter;
+        public GameObject bulletPrefab;
+        public GameObject missilePrefab;
+
+        [Header("Прочее")]
+        public GameObject parent;
 
         protected bool MissileEmitterChange;                //Флаг смены ракетного барабана
 
         protected Transform target;
-        protected Transform shootEmitter;
-        protected GameObject parent;
-        protected GameObject bulletPrefab;
+        
         protected GameObject shieldPrefab;
-        protected GameObject missilePrefab;
         protected Slider healthSlider;
         protected Slider shieldSlider;
         protected GameManager gameManager;
         protected Rigidbody rb;
         protected Transform tr;
         protected GameObject gm;
-
-
 
         public abstract void BulletDamage(float BulletDamage, int shieldDamageBoost);
         public abstract void MissileDamage(float MissileDamage, int shieldDamageBoost);
@@ -62,35 +59,43 @@ namespace Rockets
         public abstract void LaunchMissile();
     }
 
-    public abstract class MissileFactory : MonoBehaviour
+    public abstract class AmmoFactory : MonoBehaviour
     {
         [Header("Movement")]
         public float moveSpeed;
-        public float rotationSpeed;
 
         [Header("Damage")]
         public float damage;
         public int shieldDamageBoost;
 
-        [Header("Searching & Behaviour")]
+        [Header("Behaviour")]
         public float lifeTime;
+        protected float lifeTimer;
+        protected Vector3 movement;
+        protected Rigidbody rb;
+        protected Transform tr;
+        protected GameObject target;
+        protected string BossTag;
+        protected GameManager gameManager;
+
+    }
+    public abstract class MissileFactory : AmmoFactory
+    {
+        [Header("Movement")]
+        public float rotationSpeed;
+
+        [Header("Damage")]
+
+        [Header("Behaviour")]
         public float searchTimeDelay;
         public float searchingTime;
         public bool searchFlag;
-        protected float lifeTimer;
         protected float searchTimer;
         protected float searchingTimer;
 
         protected Vector3 startMoveDirection;
-        private Vector3 searchDirection;
-        private Vector3 movement;
+        protected Vector3 searchDirection;
         private Quaternion searchRotation;
-
-
-        protected Rigidbody rb;
-        protected Transform tr;
-        protected GameObject target;
-
         public void FindDirection()
         {
 
@@ -142,6 +147,26 @@ namespace Rockets
 
     }
 
+    public abstract class BulletFactory : AmmoFactory
+    {
+
+
+        public void MoveAndLive()
+        {
+            movement = tr.forward * moveSpeed * Time.deltaTime;
+
+            lifeTimer -= Time.deltaTime;
+            if (lifeTimer <= 0f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+
+        public void PhysicalMovement()
+        {
+            rb.MovePosition(tr.position + movement);
+        }
+    }
 
     
 }

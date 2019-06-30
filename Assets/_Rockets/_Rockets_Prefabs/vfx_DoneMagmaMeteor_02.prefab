@@ -4850,8 +4850,6 @@ MonoBehaviour:
   enemy: {fileID: 7131438732031217851, guid: 1cc3fbd26d3a6a64bbe4dd1d2f7d3ed9, type: 3}
   MeteorDamage: 40
   ShieldDamageBoost: 4
-  NumberOfLevel: 2
-  BossTag: ThirdBoss
   trails:
   - {fileID: 4732776871570643634}
   - {fileID: 1598210981888721853}
@@ -4887,8 +4885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 3874581100925960355, guid: db8a7713a291e3e45984087bf7f90243,
     type: 3}
-  gameController: {fileID: 0}
-  NumberOfLevel: 2
 --- !u!1 &3778401357002509908
 GameObject:
   m_ObjectHideFlags: 0
@@ -14410,16 +14406,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3667096747063540720, guid: 9a97302c5232d50459af21803091fc31,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 86ec1afd062cc3048871cfc94a1239ae, type: 2}
-    - target: {fileID: 8498112580713529133, guid: 9a97302c5232d50459af21803091fc31,
-        type: 3}
-      propertyPath: ShadowPrefab
-      value: 
-      objectReference: {fileID: 1847903723655418833}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a97302c5232d50459af21803091fc31, type: 3}
 --- !u!4 &8014794798976152613 stripped

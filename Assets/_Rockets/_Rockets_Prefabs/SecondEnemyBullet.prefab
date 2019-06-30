@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6093637338378822185}
   - component: {fileID: 1873889029858645271}
   - component: {fileID: 2804835907057670331}
-  - component: {fileID: 351191118852215447}
   - component: {fileID: 9215048680626375092}
   - component: {fileID: 7349707783669510027}
   - component: {fileID: 2047459547660391628}
+  - component: {fileID: 513098623403699728}
   m_Layer: 0
   m_Name: SecondEnemyBullet
   m_TagString: SecondBossBullet
@@ -95,31 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &351191118852215447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4770692278633209514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03f8dc0632a1a944b96157593e77174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 7
-  lifeDuration: 2
-  player: {fileID: 112111498, guid: 8f91872caa4a0c345b3a2b0c83205f25, type: 3}
-  enemy: {fileID: 7131438732031217851, guid: 1cc3fbd26d3a6a64bbe4dd1d2f7d3ed9, type: 3}
-  NumberOfLevel: 1
-  ShipPrefab: {fileID: 250167213804777911, guid: 1cc3fbd26d3a6a64bbe4dd1d2f7d3ed9,
-    type: 3}
-  EnemyPrefab: {fileID: 250167213804777911, guid: 1cc3fbd26d3a6a64bbe4dd1d2f7d3ed9,
-    type: 3}
-  bulletDamage: 15
-  shieldDamageBoost: 1
-  BulletTag: SecondBossBullet
-  BossTag: SecondBoss
 --- !u!54 &9215048680626375092
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,8 +125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 2151420274045675790, guid: d7c4b9edfbf198248a3dceb4fd37ef82,
     type: 3}
-  gameController: {fileID: 0}
-  NumberOfLevel: 0
 --- !u!65 &2047459547660391628
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -165,3 +138,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1, y: 1.1, z: 1.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &513098623403699728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4770692278633209514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad41ab00f73a683448df302f199580d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  damage: 7
+  shieldDamageBoost: 2
+  lifeTime: 4
+  player: {fileID: 0}

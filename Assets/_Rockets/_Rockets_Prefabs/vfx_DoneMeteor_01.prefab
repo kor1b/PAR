@@ -14210,8 +14210,6 @@ MonoBehaviour:
   enemy: {fileID: 1620346394, guid: 209c1c42c4fa67b499d32b1accb1b150, type: 3}
   MeteorDamage: 10
   ShieldDamageBoost: 4
-  NumberOfLevel: 0
-  BossTag: 
   trails:
   - {fileID: 8592751180704037461}
   - {fileID: 8592751181183792113}
@@ -14247,8 +14245,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 3874581100925960355, guid: db8a7713a291e3e45984087bf7f90243,
     type: 3}
-  gameController: {fileID: 0}
-  NumberOfLevel: 0
 --- !u!1001 &8592751180881661115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14256,6 +14252,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8592751181432662388}
     m_Modifications:
+    - target: {fileID: 6051768424440091078, guid: 2a26604679c62b94680c528fe3cf9483,
+        type: 3}
+      propertyPath: m_Name
+      value: prop_asteroid_01
+      objectReference: {fileID: 0}
     - target: {fileID: 6051768424439926246, guid: 2a26604679c62b94680c528fe3cf9483,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14310,36 +14311,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051768424439926246, guid: 2a26604679c62b94680c528fe3cf9483,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051768424439926246, guid: 2a26604679c62b94680c528fe3cf9483,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051768424439926246, guid: 2a26604679c62b94680c528fe3cf9483,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6051768424440091078, guid: 2a26604679c62b94680c528fe3cf9483,
-        type: 3}
-      propertyPath: m_Name
-      value: prop_asteroid_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 53205713279595188, guid: 2a26604679c62b94680c528fe3cf9483,
-        type: 3}
-      propertyPath: ShadowPrefab
-      value: 
-      objectReference: {fileID: 8774885911649224009}
-    - target: {fileID: 53205713279595188, guid: 2a26604679c62b94680c528fe3cf9483,
-        type: 3}
-      propertyPath: distance
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a26604679c62b94680c528fe3cf9483, type: 3}
@@ -14438,12 +14409,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44905fa1eb9e5e241bfa00f742f2da7c, type: 3}
---- !u!1 &8774885911649224009 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 194993404560667651, guid: 44905fa1eb9e5e241bfa00f742f2da7c,
-    type: 3}
-  m_PrefabInstance: {fileID: 8895287976935780682}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4074568039585246668 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4898138769568046214, guid: 44905fa1eb9e5e241bfa00f742f2da7c,

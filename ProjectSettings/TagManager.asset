@@ -71,6 +71,8 @@ TagManager:
   - PlayerShieldBar
   - Timer
   - playerEmitter
+  - Planet
+  - EnemyParent
   layers:
   - Default
   - TransparentFX

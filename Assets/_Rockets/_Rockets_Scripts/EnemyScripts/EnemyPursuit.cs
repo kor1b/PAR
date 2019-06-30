@@ -11,17 +11,12 @@ namespace Rockets
         Rigidbody rb;
         Transform tr;
 
-
-        [HideInInspector]
-        public float speed;
         [HideInInspector]
         public float rotationSpeed;
         [HideInInspector]
         public float stoppingDistance;
         [HideInInspector]
         public float retreatingDistance;
-
-        private Vector3 movement;
 
         private Quaternion moveRotation;
 

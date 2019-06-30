@@ -581,8 +581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 0}
-  gameController: {fileID: 0}
-  NumberOfLevel: 0
 --- !u!54 &4439602623987386102
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -868,8 +866,12 @@ MonoBehaviour:
   startBetweenShots: 2
   RightMissileEmitter: {fileID: 538889430558755208}
   LeftMissileEmitter: {fileID: 2414385208217888191}
+  shootEmitter: {fileID: 111625302534187537}
   MissilePrefab: {fileID: 2961741451068695357, guid: af052133ee3ccf347b8900308b9ce1f4,
     type: 3}
+  bulletPrefab: {fileID: 8229745315883406381, guid: 0607642327c79fe4c858b7233eb6892a,
+    type: 3}
+  parent: {fileID: 0}
   joystick: {fileID: 0}
   FrostAnimationEffect: {fileID: 0}
   PetrifiedAnimationEffect: {fileID: 0}

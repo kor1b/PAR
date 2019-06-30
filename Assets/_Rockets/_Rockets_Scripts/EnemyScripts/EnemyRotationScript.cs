@@ -46,24 +46,7 @@ namespace Rockets
             healthSlider = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<Slider>();
             shieldSlider = GameObject.FindGameObjectWithTag("EnemyShieldBar").GetComponent<Slider>();
             shieldPrefab = GameObject.FindGameObjectWithTag("EnemyShield");
-            shootEmitter = GameObject.FindGameObjectWithTag("enemyEmitter").GetComponent<Transform>();
-            if (gameObject.CompareTag("FirstBoss"))
-            {
-                bulletPrefab = gameManager.FirstBossBullet;
-                parent = GameObject.FindGameObjectWithTag("FirstBossParent");
-            }
-            if (gameObject.CompareTag("SecondBoss"))
-            {
-                bulletPrefab = gameManager.SecondBossBullet;
-                missilePrefab = gameManager.SecondBossMissile;
-                parent = GameObject.FindGameObjectWithTag("SecondBossParent");
-            }
-            if (gameObject.CompareTag("ThirdBoss"))
-            {
-                bulletPrefab = gameManager.ThirdBossBullet;
-                missilePrefab = gameManager.ThirdBossMissile;
-                parent = GameObject.FindGameObjectWithTag("ThirdBossParent");
-            }
+
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
             playerStats = target.GetComponent<PlayerRotationScript>();
             enemyPursuit = parent.GetComponent<EnemyPursuit>();
@@ -105,16 +88,15 @@ namespace Rockets
         void Update()
         {
             /* Здесь можно подключить тот или иной общий стиль поведения :*/
-            if (gameObject.CompareTag("FirstBoss"))
+            if (gameManager.NumberOfLevel == 0)
             {
-
                 Enemy1Behaviour();
             }
-            if (gameObject.CompareTag("SecondBoss"))
+            if (gameManager.NumberOfLevel == 1)
             {
                 Enemy2Behaviour();
             }
-            if (gameObject.CompareTag("ThirdBoss"))
+            if (gameManager.NumberOfLevel == 2)
             {
                 Enemy3Behaviour();
             }

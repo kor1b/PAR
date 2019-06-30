@@ -164,6 +164,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2791147106717749236}
     m_Modifications:
+    - target: {fileID: 284007881896018795, guid: e73d09b87cfcf2b488a88dabc4505af4,
+        type: 3}
+      propertyPath: m_Name
+      value: StonePlanet
+      objectReference: {fileID: 0}
+    - target: {fileID: 284007881896018795, guid: e73d09b87cfcf2b488a88dabc4505af4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Planet
+      objectReference: {fileID: 0}
     - target: {fileID: 284007881896018797, guid: e73d09b87cfcf2b488a88dabc4505af4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -234,11 +244,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.099999994
       objectReference: {fileID: 0}
-    - target: {fileID: 284007881896018795, guid: e73d09b87cfcf2b488a88dabc4505af4,
-        type: 3}
-      propertyPath: m_Name
-      value: StonePlanet
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e73d09b87cfcf2b488a88dabc4505af4, type: 3}
 --- !u!4 &2687762946968508615 stripped
@@ -266,6 +271,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2791147106717749236}
     m_Modifications:
+    - target: {fileID: 3874581100925960382, guid: db8a7713a291e3e45984087bf7f90243,
+        type: 3}
+      propertyPath: m_Name
+      value: PlanetCore
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874581100925960382, guid: db8a7713a291e3e45984087bf7f90243,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3874581100925960355, guid: db8a7713a291e3e45984087bf7f90243,
         type: 3}
       propertyPath: gravity
@@ -341,16 +356,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.099999994
       objectReference: {fileID: 0}
-    - target: {fileID: 3874581100925960382, guid: db8a7713a291e3e45984087bf7f90243,
-        type: 3}
-      propertyPath: m_Name
-      value: PlanetCore
-      objectReference: {fileID: 0}
-    - target: {fileID: 3874581100925960382, guid: db8a7713a291e3e45984087bf7f90243,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db8a7713a291e3e45984087bf7f90243, type: 3}
 --- !u!4 &1403262137647716333 stripped
@@ -375,6 +380,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7112161950074875726, guid: 4d3cd64275840984a844622d56af2358,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyParent
       objectReference: {fileID: 0}
     - target: {fileID: 7112161950074875760, guid: 4d3cd64275840984a844622d56af2358,
         type: 3}
@@ -455,6 +465,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 498366731588632610, guid: 4d3cd64275840984a844622d56af2358,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5155079621735684101, guid: 4d3cd64275840984a844622d56af2358,
         type: 3}

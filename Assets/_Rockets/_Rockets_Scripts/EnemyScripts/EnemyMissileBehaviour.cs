@@ -42,7 +42,7 @@ namespace Rockets
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject != null && other.gameObject.activeInHierarchy && other.CompareTag("Player"))
+            if (other.CompareTag("Player") && other.gameObject.activeInHierarchy)
             {
                 PlayerTarget.MissileDamage(damage, shieldDamageBoost);
                 gameObject.SetActive(false);

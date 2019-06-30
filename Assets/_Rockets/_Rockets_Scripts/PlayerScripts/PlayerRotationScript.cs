@@ -43,7 +43,7 @@ namespace Rockets
             gameManager = GameManager.Instance;
             if (gameManager == null)
                 Debug.Log("Fuck!!");
-
+            #region Привязка всех объектов
             joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<FixedJoystick>();
             bulletPrefab = gameManager.PlayerBullet;
             missilePrefab = gameManager.PlayerMissile;
@@ -54,6 +54,7 @@ namespace Rockets
             shootEmitter = GameObject.FindGameObjectWithTag("playerEmitter").GetComponent<Transform>();
             FrostAnimationEffect = GameObject.FindGameObjectWithTag("FrostEffect").GetComponent<FrostEffectBehaviour>();
             PetrifiedAnimationEffect = GameObject.FindGameObjectWithTag("PetrifiedEffect").GetComponent<PetrifiedEffectBehaviour>();
+            #endregion
         }
         void Start()
         {
@@ -61,6 +62,7 @@ namespace Rockets
             tr = GetComponent<Transform>();
             gm = GetComponent<GameObject>();
 
+            #region Устанавливаем все стартовые параметры
             healthSlider.value = startHealth;
             shieldSlider.value = startShield;
             health = startHealth;
@@ -87,6 +89,7 @@ namespace Rockets
 
             //Устанавливаем параметры для передачи вне сцены
             Win = 0;
+            #endregion
         }
 
         void Update()

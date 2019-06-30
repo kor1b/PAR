@@ -12,9 +12,6 @@ namespace Rockets
         Transform tr;
 
         private Joystick joystick;                 //Джойстик управления
-
-        private Vector3 moveDirection;
-        private float moveSpeed;
         void Start()
         {
             joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<FixedJoystick>();
@@ -34,14 +31,14 @@ namespace Rockets
 
         public override void Rotate()
         {
-            moveSpeed = playerStats.speed; //Подгружаем скорость
+            speed = playerStats.speed; //Подгружаем скорость
 
-            moveDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical); //Двигаемся в направлении осей джойстика
+            movement = new Vector3(joystick.Horizontal, 0, joystick.Vertical); //Двигаемся в направлении осей джойстика
         }
 
         public override void Move()
         {
-            rb.MovePosition(rb.position + tr.TransformDirection(moveDirection) * moveSpeed * Time.deltaTime); //Двигаем по физике
+            rb.MovePosition(rb.position + tr.TransformDirection(movement) * speed * Time.deltaTime); //Двигаем по физике
         }
 
 

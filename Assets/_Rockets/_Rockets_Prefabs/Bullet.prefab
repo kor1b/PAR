@@ -107,17 +107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03f8dc0632a1a944b96157593e77174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  lifeDuration: 2
-  player: {fileID: 112111498, guid: 8f91872caa4a0c345b3a2b0c83205f25, type: 3}
+  moveSpeed: 2
+  damage: 5
+  shieldDamageBoost: 2
+  lifeTime: 4
   enemy: {fileID: 1620346394, guid: 209c1c42c4fa67b499d32b1accb1b150, type: 3}
-  NumberOfLevel: 0
-  ShipPrefab: {fileID: 459515678, guid: 8f91872caa4a0c345b3a2b0c83205f25, type: 3}
-  EnemyPrefab: {fileID: 0}
-  bulletDamage: 5
-  shieldDamageBoost: 1
-  BulletTag: FirstBossBullet
-  BossTag: FirstBoss
 --- !u!54 &4890181009920649807
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -148,8 +142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 2649931403649357990, guid: d7c4b9edfbf198248a3dceb4fd37ef82,
     type: 3}
-  gameController: {fileID: 0}
-  NumberOfLevel: 1
 --- !u!65 &5543477125426531670
 BoxCollider:
   m_ObjectHideFlags: 0

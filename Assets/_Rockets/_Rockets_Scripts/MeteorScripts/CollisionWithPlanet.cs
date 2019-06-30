@@ -17,9 +17,6 @@ namespace Rockets
         public float MeteorDamage;
         public int ShieldDamageBoost;
 
-        public int NumberOfLevel;
-        public string BossTag;
-
         public List<ParticleSystem> trails;  //Дым, огонь и другие "цепные" эффекты
 
         public bool MeteorDestroyed;
@@ -27,45 +24,18 @@ namespace Rockets
 
         void Awake()
         {
-
             gameController = GameManager.Instance;
 
             if (gameController.Win != 2)
                 player = GameObject.FindWithTag("Player").GetComponent<PlayerRotationScript>();
 
-
-
             if (gameController.Win != 1)
-                if (NumberOfLevel == 0)
-                {
-                    if (GameObject.FindGameObjectWithTag("FirstBoss").activeSelf)
-                    {
-                        enemy = GameObject.FindWithTag("FirstBoss").GetComponent<EnemyRotationScript>();
-                        BossTag = "FirstBoss";
-                    }
-                }
-                else if (NumberOfLevel == 1)
-                {
-                    if (GameObject.FindGameObjectWithTag("SecondBoss").activeInHierarchy)
-                    {
-                        enemy = GameObject.FindWithTag("SecondBoss").GetComponent<EnemyRotationScript>();
-                        BossTag = "SecondBoss";
-                    }
-                }
-                else if (NumberOfLevel == 0)
-                {
-                    if (GameObject.FindGameObjectWithTag("ThirdBoss").activeInHierarchy)
-                    {
-                        enemy = GameObject.FindWithTag("ThirdBoss").GetComponent<EnemyRotationScript>();
-                        BossTag = "ThirdBoss";
-                    }
-                }
+                if (GameObject.FindGameObjectWithTag("Enemy").activeInHierarchy)
+                    enemy = GameObject.FindWithTag("Enemy").GetComponent<EnemyRotationScript>();
         }
         void OnEnable()
         {
-
             MeteorDestroyed = false;
-
         }
         void OnCollisionEnter(Collision other)
         {
@@ -84,6 +54,8 @@ namespace Rockets
                     var ImpactVFX = Instantiate(Impact, pos, rot) as GameObject;
                     Destroy(ImpactVFX, 10);
                 }
+
+                    Shadow.SetActive(false);
 
                 //Плавно убираем дым с огнём
                 if (trails.Count > 0)
@@ -114,7 +86,7 @@ namespace Rockets
                     //Debug.Log("Meteor Hit the Player!");
                     player.MeteorDamage(MeteorDamage, ShieldDamageBoost);  //Вызываем функцию урона игроку
                 }
-                if (other.collider.CompareTag(BossTag))
+                if (other.collider.CompareTag("Enemy"))
                 {
                     //Debug.Log("Meteor Hit the Enemy!");
                     enemy.MeteorDamage(MeteorDamage, ShieldDamageBoost);  //Вызываем функцию урона противнику
