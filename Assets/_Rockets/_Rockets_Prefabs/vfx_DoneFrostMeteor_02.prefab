@@ -168,8 +168,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.5
+      scalar: 0.25
+      minScalar: 0.125
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -284,8 +284,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.6
+      scalar: 0.25
+      minScalar: 0.15
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -746,7 +746,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.04
+      value: 0.007
       mode: 0
       spread: 0
       speed:
@@ -865,8 +865,8 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 50
-      minScalar: 40
+      scalar: 60
+      minScalar: 50
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1304,7 +1304,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.29800004, b: 0.22000003, a: 0.17254902}
+        key1: {r: 0.24307665, g: 0.09927912, b: 0.9150943, a: 0.17254902}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4982,8 +4982,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.08
-      minScalar: 0.01
+      scalar: 0.02
+      minScalar: 0.0025
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5361,7 +5361,7 @@ ParticleSystem:
     angle: 75
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 0.4
+    radiusThickness: 0.5
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -5444,7 +5444,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.2
+      value: 0.02
       mode: 0
       spread: 0
       speed:
@@ -9482,7 +9482,7 @@ Transform:
   m_GameObject: {fileID: 3518111732695839189}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
   m_Children:
   - {fileID: 8300935024141809385}
   - {fileID: 3637929742904947634}
@@ -9512,8 +9512,6 @@ MonoBehaviour:
   enemy: {fileID: 7131438732031217851, guid: 1cc3fbd26d3a6a64bbe4dd1d2f7d3ed9, type: 3}
   MeteorDamage: 20
   ShieldDamageBoost: 4
-  NumberOfLevel: 1
-  BossTag: 
   trails:
   - {fileID: 5676430235231132254}
   - {fileID: 2516213811687196701}
@@ -9549,8 +9547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 3874581100925960355, guid: db8a7713a291e3e45984087bf7f90243,
     type: 3}
-  gameController: {fileID: 0}
-  NumberOfLevel: 0
 --- !u!1 &7266062235851937377
 GameObject:
   m_ObjectHideFlags: 0
@@ -9719,8 +9715,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 0.5
+      scalar: 0.375
+      minScalar: 0.125
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9835,8 +9831,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.6
+      scalar: 0.25
+      minScalar: 0.15
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10297,7 +10293,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.04
+      value: 0.007
       mode: 0
       spread: 0
       speed:
@@ -10416,8 +10412,8 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 50
-      minScalar: 40
+      scalar: 60
+      minScalar: 50
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14261,11 +14257,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: prop_Frostasteroid_01
       objectReference: {fileID: 0}
-    - target: {fileID: 7557250629309001069, guid: 6d5888e5abfe3e343a6c4be5871353db,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 7889356378818160422, guid: 6d5888e5abfe3e343a6c4be5871353db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14321,11 +14312,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8508216567173163532, guid: 6d5888e5abfe3e343a6c4be5871353db,
-        type: 3}
-      propertyPath: ShadowPrefab
-      value: 
-      objectReference: {fileID: 3297828140326456267}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d5888e5abfe3e343a6c4be5871353db, type: 3}
 --- !u!4 &8300935024141809385 stripped

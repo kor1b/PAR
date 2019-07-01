@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6051768424440091078}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadowPrefab: {fileID: 194993404560667651, guid: 44905fa1eb9e5e241bfa00f742f2da7c,
     type: 3}
-  distance: 150
+  distance: 10
 --- !u!136 &8955869437324242281
 CapsuleCollider:
   m_ObjectHideFlags: 0

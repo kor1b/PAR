@@ -4,25 +4,24 @@ using UnityEngine;
 
 namespace Rockets
 {
-    public class MissileMovement : MissileFactory
+    public class EnemyMissileBehaviour : MissileFactory
     {
-        private EnemyRotationScript BossTarget;
+        private PlayerRotationScript PlayerTarget;
 
         void Start()
         {
-            target = GameObject.FindGameObjectWithTag("Enemy");
+            target = GameObject.FindWithTag("Player");
+
             if (target != null && target.activeInHierarchy)
-                BossTarget = target.GetComponent<EnemyRotationScript>();
+                PlayerTarget = target.GetComponent<PlayerRotationScript>();
             else Debug.Log("Interesting FuckUp");
         }
 
-       
-        void OnEnable()
+        public void OnEnable()
         {
             lifeTimer = lifeTime;
             searchTimer = searchTimeDelay;
             searchingTimer = searchingTime;
-
             rb = GetComponent<Rigidbody>();
             tr = GetComponent<Transform>();
 
@@ -30,27 +29,24 @@ namespace Rockets
             searchFlag = false;
         }
 
-
-        void Update()
+        // Update is called once per frame
+        public void Update()
         {
             FindDirection();
         }
 
-        void FixedUpdate()
+        public void FixedUpdate()
         {
             Pursue();
         }
 
-        void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Enemy") && other.gameObject.activeInHierarchy)
+            if (other.CompareTag("Player") && other.gameObject.activeInHierarchy)
             {
-                BossTarget.MissileDamage(damage, shieldDamageBoost);
+                PlayerTarget.MissileDamage(damage, shieldDamageBoost);
                 gameObject.SetActive(false);
-
             }
-
         }
-
     }
 }

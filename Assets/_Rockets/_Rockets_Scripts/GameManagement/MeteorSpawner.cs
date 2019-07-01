@@ -6,8 +6,6 @@ namespace Rockets
 {
     public class MeteorSpawner : MonoBehaviour
     {
-
-
         private GameObject meteorPrefab; //Цельный префаб готового метеорита(С "тенью", эффектами и т.д.)
         public GameObject FrostMeteorPrefab;
         public GameObject FlameMeteorPrefab;
@@ -18,12 +16,9 @@ namespace Rockets
         public GameObject FlameAlfaMainMeteor;
         public GameObject MagmaAlfaMainMeteor;
 
-
-
-
         float distance;  // Радиус спавна
-
-        public float delayTime = 3f; //Частота спавна
+        
+        private float delayTime = 8f; //Частота спавна
 
         private GameManager gameController;
 

@@ -4,36 +4,42 @@ using UnityEngine;
 
 namespace Rockets
 {
-    public class PlayerControl : MonoBehaviour
+    public class PlayerControl : Movement
     {
-        public PlayerRotationScript playerStats;  //Характеристики игрока
+        private PlayerRotationScript playerStats;  //Характеристики игрока
 
         Rigidbody rb;
         Transform tr;
 
-        public Joystick joystick;                 //Джойстик управления
-
-        private Vector3 moveDirection;
-        private float moveSpeed;
+        private Joystick joystick;                 //Джойстик управления
         void Start()
         {
             joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<FixedJoystick>();
             rb = GetComponent<Rigidbody>();
             tr = GetComponent<Transform>();
+            playerStats = GetComponentInChildren<PlayerRotationScript>();
 
         }
         void Update()
         {
-            moveSpeed = playerStats.moveSpeed; //Подгружаем скорость
-
-            moveDirection = new Vector3(joystick.Horizontal, 0, joystick.Vertical); //Двигаемся в направлении осей джойстика
+            Rotate();
         }
         void FixedUpdate()
         {
-            rb.MovePosition(rb.position + tr.TransformDirection(moveDirection) * moveSpeed * Time.deltaTime); //Двигаем физику
+            Move();
         }
 
+        public override void Rotate()
+        {
+            speed = playerStats.speed; //Подгружаем скорость
 
+            movement = new Vector3(joystick.Horizontal, 0, joystick.Vertical); //Двигаемся в направлении осей джойстика
+        }
+
+        public override void Move()
+        {
+            rb.MovePosition(rb.position + tr.TransformDirection(movement) * speed * Time.deltaTime); //Двигаем по физике
+        }
 
 
     }

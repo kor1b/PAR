@@ -5,41 +5,23 @@ using UnityEngine;
 
 namespace Rockets
 {
-    public class PlayerRotationScript : MonoBehaviour
+    public class PlayerRotationScript : ShipFactory
     {
-
-        Rigidbody rb;
-        Transform tr;
-        GameObject gm;
-
+        [HideInInspector]
         public Joystick joystick;
 
-        public Transform ShootEmitter;         //Место для стрельбы пулями
-
-        public Transform RightMissileEmitter;  //Ракетный барабан правого борта
-        public Transform LeftMissileEmitter;   //Ракетный барабан левого борта
-
-        public GameObject BulletPrefab;
-        public GameObject ShieldPrefab;
-        public GameObject MissilePrefab;
-
-        public GameObject Enemy;
-
-        private Slider playerHealthBar;
-        private Slider playerShieldBar;
         private Slider reloadSlider;
 
+        [HideInInspector]
         public FrostEffectBehaviour FrostAnimationEffect;   //Связь со скриптом умения 2-го босса -- "Заморозка"
+        [HideInInspector]
         public PetrifiedEffectBehaviour PetrifiedAnimationEffect; //Связь со скриптом умения 3-го босса -- "Каменные Оковы"
-
-        public GameManager gameController;
 
         private Vector3 currentRotateDirection;
         private Vector3 previousRotateDirection;
         private Quaternion slerpRotation;
 
         private bool DamageInputFlag;                     //Флаг получения урона
-        private bool MissileEmitterChange;                //Флаг смены ракетного барабана
         private float ShieldRecoveryTime;                 //Вспомогательный таймер восстановления щитов
 
         private float speedForFreeze;                     //Скорость при заморозке
@@ -49,47 +31,35 @@ namespace Rockets
         private float petrifyDamagePerFrame;
         private bool petrifyRotation;
 
+        [HideInInspector]
         public int Win;                                   //Опреелитель победы, поражения, ничьи или выхода из боя
 
-        private float playerHealth;
-        private float playerShield;
+        private float ShieldRecoveryDelay = 5f;                 //Время которое игрок должен продержаться без получения урона, для восстановления щитов
+        private float ShieldRecoveryValue = 0.1f;                 //Значение, на которое восполняется щит за каждый фрейм.
 
-        public float moveSpeed;                           //Скорость движения
-
-        public int MissilesStorage;
-        public int currentMissileAmount;
-
-        public float playerStartHealth;
-        public float playerStartShield;
-
-        public float ShieldRecoveryDelay;                 //Время которое игрок должен продержаться без получения урона, для восстановления щитов
-        public float ShieldRecoveryValue;                 //Значение, на которое восполняется щит за каждый фрейм.
-
-        private float timeBetweenShots;
-        public float startBetweenShots;
         private bool Reloaded = true;
+
+
+        private int currentMissileAmount;
+        [HideInInspector]
+        public int startMissileAmount = 3;
         void Awake()
         {
-            //gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-
-            gameController = GameManager.Instance;
-
-            if (gameController == null)
+            gameManager = GameManager.Instance;
+            if (gameManager == null)
                 Debug.Log("Fuck!!");
-
+            #region Привязка всех объектов
             joystick = GameObject.FindGameObjectWithTag("Joystick").GetComponent<FixedJoystick>();
-            BulletPrefab = gameController.PlayerBullet;
-            MissilePrefab = gameController.PlayerMissile;
-            playerHealthBar = GameObject.FindGameObjectWithTag("PlayerHealthBar").GetComponent<Slider>();
-            playerShieldBar = GameObject.FindGameObjectWithTag("PlayerShieldBar").GetComponent<Slider>();
+            bulletPrefab = gameManager.PlayerBullet;
+            missilePrefab = gameManager.PlayerMissile;
+            shieldPrefab = GameObject.FindGameObjectWithTag("PlayerShield");
+            healthSlider = GameObject.FindGameObjectWithTag("PlayerHealthBar").GetComponent<Slider>();
+            shieldSlider = GameObject.FindGameObjectWithTag("PlayerShieldBar").GetComponent<Slider>();
             reloadSlider = GameObject.FindGameObjectWithTag("ReloadSlider").GetComponent<Slider>();
+            shootEmitter = GameObject.FindGameObjectWithTag("playerEmitter").GetComponent<Transform>();
             FrostAnimationEffect = GameObject.FindGameObjectWithTag("FrostEffect").GetComponent<FrostEffectBehaviour>();
             PetrifiedAnimationEffect = GameObject.FindGameObjectWithTag("PetrifiedEffect").GetComponent<PetrifiedEffectBehaviour>();
-
-            //PlayerPrefs.SetInt("MissileStorage", 3);
-            //MissilesStorage = PlayerPrefs.GetInt("MissileStorage");
-
-            currentMissileAmount = MissilesStorage;
+            #endregion
         }
         void Start()
         {
@@ -97,22 +67,24 @@ namespace Rockets
             tr = GetComponent<Transform>();
             gm = GetComponent<GameObject>();
 
-            playerHealthBar.value = playerStartHealth;
-            playerShieldBar.value = playerStartShield;
-            playerHealth = playerStartHealth;
-            playerShield = playerStartShield;
+            #region Устанавливаем все стартовые параметры
+            healthSlider.value = startHealth;
+            shieldSlider.value = startShield;
+            health = startHealth;
+            shield = startShield;
+            speed = startSpeed;
 
-            speedForFreeze = moveSpeed;
+            speedForFreeze = speed;
 
             freezeRotation = false;
             petrifyRotation = false;
 
 
-            ShieldPrefab.SetActive(true);             //Включаем щиты
+            shieldPrefab.SetActive(true);             //Включаем щиты
+
+            currentMissileAmount = startMissileAmount;
 
             DamageInputFlag = false;                  //Индикатор входящего урона
-
-            MissileEmitterChange = false;
 
             ShieldRecoveryTime = ShieldRecoveryDelay; //Устанавливаем задержку перед началом восстановления щитов
 
@@ -122,6 +94,7 @@ namespace Rockets
 
             //Устанавливаем параметры для передачи вне сцены
             Win = 0;
+            #endregion
         }
 
         void Update()
@@ -150,23 +123,23 @@ namespace Rockets
         /* Функция восстановления щитов */
         void ShieldRecovery()
         {
-            if ((DamageInputFlag) && (playerShieldBar.value < 100))  //Если был урон, и щиты не полные
+            if ((DamageInputFlag) && (shieldSlider.value < 100))  //Если был урон, и щиты не полные
             {
                 //Debug.Log("ShiedTime!");
                 if (ShieldRecoveryTime <= 0)
                 {
                     //Восстанавливаем щиты, если продержались достаточно(И возвращаем их, если они были уничтожены)
-                    if (ShieldPrefab.activeInHierarchy)
+                    if (shieldPrefab.activeInHierarchy)
                     {
-                        playerShield += ShieldRecoveryValue;
-                        playerShieldBar.value = playerShield;
+                        shield += ShieldRecoveryValue;
+                        shieldSlider.value = shield;
                     }
                     else
                     {
 
-                        ShieldPrefab.SetActive(true);
-                        playerShield += ShieldRecoveryValue;
-                        playerShieldBar.value = playerShield;
+                        shieldPrefab.SetActive(true);
+                        shield += ShieldRecoveryValue;
+                        shieldSlider.value = shield;
                     }
                 }
                 else
@@ -177,30 +150,30 @@ namespace Rockets
         }
 
 
-        public void BulletDamage(float enemyBulletDamage, int shieldDamageBoost)
-        {
+    public override void BulletDamage(float enemyBulletDamage, int shieldDamageBoost)
+    {
 
-            if (ShieldPrefab != null && ShieldPrefab.activeInHierarchy)
+            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
             {
                 //Debug.Log("PlayerShieldDamaged!");
-                playerShield -= (enemyBulletDamage * shieldDamageBoost);
-                playerShieldBar.value = playerShield;
-                if (playerShield <= 0f)
+                shield -= (enemyBulletDamage * shieldDamageBoost);
+                shieldSlider.value = shield;
+                if (shield <= 0f)
                 {
-                    playerShieldBar.value = 0f;
-                    ShieldPrefab.SetActive(false);
+                    shieldSlider.value = 0f;
+                    shieldPrefab.SetActive(false);
                 }
             }
             else if (gameObject != null && gameObject.activeInHierarchy)
             {
-                playerHealth -= enemyBulletDamage;
-                playerHealthBar.value = playerHealth;
+                health -= enemyBulletDamage;
+                healthSlider.value = health;
 
             }
 
-            if (playerHealth <= 0f)
+            if (health <= 0f)
             {
-                playerHealthBar.value = 0f;
+                healthSlider.value = 0f;
                 gameObject.SetActive(false);
 
             }
@@ -212,30 +185,30 @@ namespace Rockets
 
         }
 
-        public void MissileDamage(float enemyMissileDamage, int shieldDamageBoost)
+        public override void MissileDamage(float enemyMissileDamage, int shieldDamageBoost)
         {
 
-            if (ShieldPrefab != null && ShieldPrefab.activeInHierarchy)
+            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
             {
                 //Debug.Log("PlayerShieldDamaged!");
-                playerShield -= (enemyMissileDamage * shieldDamageBoost);
-                playerShieldBar.value = playerShield;
-                if (playerShield <= 0f)
+                shield -= (enemyMissileDamage * shieldDamageBoost);
+                shieldSlider.value = shield;
+                if (shield <= 0f)
                 {
-                    playerShieldBar.value = 0f;
-                    ShieldPrefab.SetActive(false);
+                    shieldSlider.value = 0f;
+                    shieldPrefab.SetActive(false);
                 }
             }
             else if (gameObject != null && gameObject.activeInHierarchy)
             {
-                playerHealth -= enemyMissileDamage;
-                playerHealthBar.value = playerHealth;
+                health -= enemyMissileDamage;
+                healthSlider.value = health;
 
             }
 
-            if (playerHealth <= 0f)
+            if (health <= 0f)
             {
-                playerHealthBar.value = 0f;
+                healthSlider.value = 0f;
                 gameObject.SetActive(false);
 
             }
@@ -246,36 +219,36 @@ namespace Rockets
             }
 
         }
-        public void MeteorDamage(float meteorDamage, int shieldDamageBoost)
+        public override void MeteorDamage(float meteorDamage, int shieldDamageBoost)
         {
-            if (ShieldPrefab != null && ShieldPrefab.activeInHierarchy)
+            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
             {
 
-                playerShield -= (meteorDamage * shieldDamageBoost);
+                shield -= (meteorDamage * shieldDamageBoost);
 
-                playerShieldBar.value = playerShield;
+                shieldSlider.value = shield;
 
-                if (playerShield <= 0f)
+                if (shield <= 0f)
                 {
                     //playerShieldBar.value = 0f;
-                    ShieldPrefab.SetActive(false);
+                    shieldPrefab.SetActive(false);
                 }
                 else
                 {
-                    playerShieldBar.value = playerShield;
+                    shieldSlider.value = shield;
                 }
             }
             else if (gameObject != null && gameObject.activeInHierarchy)
             {
 
-                playerHealth -= meteorDamage;
-                playerHealthBar.value = playerHealth;
+                health -= meteorDamage;
+                healthSlider.value = health;
 
             }
 
-            if (playerHealth <= 0f)
+            if (health <= 0f)
             {
-                playerHealthBar.value = 0f;
+                healthSlider.value = 0f;
                 gameObject.SetActive(false);
 
             }
@@ -308,7 +281,7 @@ namespace Rockets
         {
             if (GameManager.gameIsGoing && !GameManager.countdownGameStarted)
             {
-                moveSpeed = 0.2f;                       //Замедлем игрока
+                speed = 0.2f;                       //Замедлем игрока
                 freezeRotation = true;                  //Замораживаем поворот
                 freezeDamagePerFrame = damagePerFrame;  //Обновляем урон
 
@@ -316,7 +289,7 @@ namespace Rockets
 
                 yield return new WaitForSeconds(duration);
 
-                moveSpeed = speedForFreeze;             //Возвращаем сохраненную скорость
+                speed = speedForFreeze;             //Возвращаем сохраненную скорость
                 freezeRotation = false;
                 FrostAnimationEffect.FrostFadeOut();    //Запускаем анимацию отмерзания экрана    
             }
@@ -327,7 +300,7 @@ namespace Rockets
         {
             if (GameManager.gameIsGoing && !GameManager.countdownGameStarted)
             {
-                moveSpeed = 0.2f;                       //Замедлем игрока
+            speed = 0.2f;                       //Замедлем игрока
             petrifyRotation = true;                  //Замораживаем поворот
             petrifyDamagePerFrame = damagePerFrame;  //Обновляем урон
 
@@ -335,7 +308,7 @@ namespace Rockets
 
             yield return new WaitForSeconds(duration);
 
-            moveSpeed = speedForFreeze;             //Возвращаем сохраненную скорость
+            speed = speedForFreeze;             //Возвращаем сохраненную скорость
             petrifyRotation = false;
             PetrifiedAnimationEffect.PetrifiedFadeOut();    //Запускаем анимацию откаменения хдд)) экрана    
             }
@@ -346,12 +319,12 @@ namespace Rockets
         {
             if (freezeRotation)
             {
-                playerHealth -= freezeDamagePerFrame; //Наносим урон от заморозки
-                playerHealthBar.value = playerHealth;
+                health -= freezeDamagePerFrame; //Наносим урон от заморозки
+                healthSlider.value = health;
 
-                if (playerHealth <= 0f)
+                if (health <= 0f)
                 {
-                    playerHealthBar.value = 0f;
+                    healthSlider.value = 0f;
                     gameObject.SetActive(false);
                     /*
                     if (!Enemy.activeInHierarchy)
@@ -375,8 +348,6 @@ namespace Rockets
                     ShieldRecoveryTime = ShieldRecoveryDelay;
                 }
             }
-            //else
-            //{
                 float h1 = joystick.Horizontal; // set as your inputs 
                 float v1 = joystick.Vertical;
 
@@ -409,20 +380,19 @@ namespace Rockets
 
 
                 }
-            //}
         }
 
         //Функция стрельбы
-        public void Shoot()
+        public override void Shoot()
         {
             if (Reloaded)
             {
                 if (gameObject.activeInHierarchy)
                 {
-                    GameObject bulletObject = ObjectPoolingManager.Instance.GetPlayerBullet(BulletPrefab);
-                    bulletObject.transform.position = ShootEmitter.position;
+                    GameObject bulletObject = ObjectPoolingManager.Instance.GetPlayerBullet(bulletPrefab);
+                    bulletObject.transform.position = shootEmitter.position;
                     //bulletObject.transform.up = ShootEmitter.up;
-                    bulletObject.transform.forward = ShootEmitter.forward;
+                    bulletObject.transform.forward = shootEmitter.forward;
                 }
                 Reloaded = false;
                 reloadSlider.value = 0f;
@@ -434,25 +404,29 @@ namespace Rockets
         }
 
         //Функция запуска ракеты
-        public void LaunchMissile()
+        public override void LaunchMissile()
         {
-            if (gameObject.activeInHierarchy && currentMissileAmount > 0)
+            if (currentMissileAmount > 0)
             {
-                GameObject missileObject = ObjectPoolingManager.Instance.GetPlayerMissile(MissilePrefab);
+                if (gameObject.activeInHierarchy)
+                {
+                    GameObject missileObject = ObjectPoolingManager.Instance.GetPlayerMissile(missilePrefab);
 
+
+                    //Меняем борт запуска
+                    if (MissileEmitterChange)
+                    {
+                        missileObject.transform.position = RightMissileEmitter.position;
+                        MissileEmitterChange = false;
+                    }
+                    else
+                    {
+                        missileObject.transform.position = LeftMissileEmitter.position;
+                        MissileEmitterChange = true;
+                    }
+                    missileObject.transform.forward = transform.forward;
+                }
                 currentMissileAmount--;
-                //Меняем борт запуска
-                if (MissileEmitterChange)
-                {
-                    missileObject.transform.position = RightMissileEmitter.position;
-                    MissileEmitterChange = false;
-                }
-                else
-                {
-                    missileObject.transform.position = LeftMissileEmitter.position;
-                    MissileEmitterChange = true;
-                }
-                missileObject.transform.forward = transform.forward;
             }
         }
     }

@@ -11,33 +11,25 @@ namespace Rockets
     {
         public static GameManager Instance;
 
-        public GameObject Player;
-        public GameObject Enemy;
-
+        [HideInInspector]
         public int NumberOfLevel;
 
         public Slider PlayerHealth;
-        public Slider PlayerShield;
         public Slider EnemyHealth;
-        public Slider EnemyShield;
 
         public GameObject PlayerBullet;
         public GameObject PlayerMissile;
 
-        public GameObject FirstBossBullet;
-        public GameObject SecondBossBullet;
-        public GameObject ThirdBossBullet;
+        private GameObject Player;
+        private GameObject Enemy;
 
-        public GameObject SecondBossMissile;
-        public GameObject ThirdBossMissile;
-
-        public FrostEffectBehaviour FrostAnimationEffect;   //Связь со скриптом умения 2-го босса -- "Заморозка"
-        public PetrifiedEffectBehaviour PetrifiedAnimationEffect; //Связь со скриптом умения 3-го босса -- "Каменные Оковы"
-
+        private FrostEffectBehaviour FrostAnimationEffect;   //Связь со скриптом умения 2-го босса -- "Заморозка"
+        private PetrifiedEffectBehaviour PetrifiedAnimationEffect; //Связь со скриптом умения 3-го босса -- "Каменные Оковы"
         
-
+        [HideInInspector]
         public int Win;  //Переменная определяет победителя
 
+        [HideInInspector]
         public int Coins;
         private int currentCoins;
 
@@ -51,7 +43,9 @@ namespace Rockets
 
         public TextMeshProUGUI timerText;
         public Animator timerTextAnim;
-        public float startGameTime;
+
+        [HideInInspector]
+        public float startGameTime = 3f;
         private float timer;
 
         private float tempOriginPlayerSpeed;
@@ -69,28 +63,14 @@ namespace Rockets
         private bool OneTimeFlag1 = false;
         private bool OneTimeFlag2 = false;
 
-        public float GameTime;
+        private float GameTime;
 
-        public float LooseTime;
+        [HideInInspector]
+        public float LooseTime = 120f;
         private float looseTimer;
 
-        private float SafetyExitTime = 0f;
         void Awake()
         {
-
-            //PlayerPrefs.SetInt("SetControl", 0);
-            Time.timeScale = 1;
-            StartCoroutine(StartGame());
-
-            Player = GameObject.FindGameObjectWithTag("Player");
-            Player.SetActive(true);
-            PlayerScript = Player.GetComponent<PlayerRotationScript>();
-
-            if (PlayerPrefs.HasKey("Coins"))
-                Coins = PlayerPrefs.GetInt("Coins");
-
-            
-
             #region Singleton;
             if (Instance != null)
             {
@@ -101,46 +81,40 @@ namespace Rockets
                 Instance = this;
             }
             #endregion
+
+            //PlayerPrefs.SetInt("SetControl", 0);
+            Time.timeScale = 1;
+            StartCoroutine(StartGame());
+
+            #region Ищем игрока и противника
+            Player = GameObject.FindGameObjectWithTag("Player");
+            Player.SetActive(true);
+            Enemy = GameObject.FindWithTag("Enemy");
+            Enemy.SetActive(true);
+            PlayerScript = Player.GetComponent<PlayerRotationScript>();
+            EnemyScript = Enemy.GetComponent<EnemyRotationScript>();
+            #endregion
+
+            if (PlayerPrefs.HasKey("Coins"))
+                Coins = PlayerPrefs.GetInt("Coins");
+
+
         }
 
         
         void Start()
         {
-            
-            if (NumberOfLevel == 0)
-            {
-                Enemy = GameObject.FindWithTag("FirstBoss");
-                Enemy.SetActive(true);
-                EnemyScript = Enemy.GetComponent<EnemyRotationScript>();
-                
-            }
-            else if (NumberOfLevel == 1)
-            {
-                Enemy = GameObject.FindWithTag("SecondBoss");
-                Enemy.SetActive(true);
-                EnemyScript = Enemy.GetComponent<EnemyRotationScript>();
-            }
-            else if (NumberOfLevel == 2)
-            {
-                Enemy = GameObject.FindWithTag("ThirdBoss");
-                Enemy.SetActive(true);
-                EnemyScript = Enemy.GetComponent<EnemyRotationScript>();
-            }
-
+            #region Задаём стартовые параметры и привязку
             FrostAnimationEffect = GameObject.FindGameObjectWithTag("FrostEffect").GetComponent<FrostEffectBehaviour>();
             PetrifiedAnimationEffect = GameObject.FindGameObjectWithTag("PetrifiedEffect").GetComponent<PetrifiedEffectBehaviour>();
+            PlayerHealth = GameObject.FindGameObjectWithTag("PlayerHealthBar").GetComponent<Slider>();
+            EnemyHealth = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<Slider>();
 
             Win = 0;
 
             timer = startGameTime;
             looseTimer = LooseTime;
-
-            PlayerHealth = GameObject.FindGameObjectWithTag("PlayerHealthBar").GetComponent<Slider>();
-            PlayerShield = GameObject.FindGameObjectWithTag("PlayerShieldBar").GetComponent<Slider>();
-            EnemyHealth = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<Slider>();
-            EnemyShield = GameObject.FindGameObjectWithTag("EnemyShieldBar").GetComponent<Slider>();
-
-
+            #endregion
             SetControl();
             SwapButtons();
         }
@@ -158,6 +132,7 @@ namespace Rockets
 
             SafetyExitFunc();
 
+            #region Условия Победы/Поражения
             if (PlayerHealth.value == 0f)
             {
                 Player.SetActive(false);
@@ -211,6 +186,7 @@ namespace Rockets
                 Win = 2;
                 Debug.Log("GameOver");
             }
+            #endregion
         }
 
         public void SafetyExitFunc()
@@ -226,16 +202,17 @@ namespace Rockets
 
         }
 
+        //Работает на остановку игры во время отсчёта таймера
         public void ChangeStatsForStartStop()
         {
             if (!gameIsGoing)
             {
                 if (!OneTimeFlag1)
                 {
-                    tempOriginPlayerSpeed = Player.GetComponent<PlayerRotationScript>().moveSpeed;
+                    tempOriginPlayerSpeed = Player.GetComponent<PlayerRotationScript>().speed;
                     tempOriginEnemySpeed = EnemyScript.speed;
 
-                    Player.GetComponent<PlayerRotationScript>().moveSpeed = 0f;
+                    Player.GetComponent<PlayerRotationScript>().speed = 0f;
                     EnemyScript.speed = 0f;
 
                     EnemyScript.ShootActive = false;
@@ -253,7 +230,7 @@ namespace Rockets
             {
                 if (!OneTimeFlag2)
                 {
-                    Player.GetComponent<PlayerRotationScript>().moveSpeed = tempOriginPlayerSpeed;
+                    Player.GetComponent<PlayerRotationScript>().speed = tempOriginPlayerSpeed;
                     EnemyScript.speed = tempOriginEnemySpeed;
                     EnemyScript.ShootActive = true;
                     Player.GetComponent<PlayerRotationScript>().freezeRotation = false;
@@ -283,7 +260,6 @@ namespace Rockets
             RightButton.interactable = Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
             
         }
-
         public void ChangeControl()
         {
             
@@ -300,6 +276,7 @@ namespace Rockets
             else
                 return 0;
         }
+
         //Функция подсчёта монет
         public void CountCoins()
         {
@@ -367,9 +344,7 @@ namespace Rockets
         //start anim
         timerTextAnim.SetBool("GameStarted", true);
         //set standart value for timer
-        timer = startGameTime;
-
-            
+        timer = startGameTime;     
         }
 
    }

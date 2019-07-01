@@ -5,53 +5,25 @@ using UnityEngine;
 
 namespace Rockets
 {
-    public class EnemyRotationScript : MonoBehaviour
+    public class EnemyRotationScript : ShipFactory
     {
-
-        Transform tr;
-
-        public GameObject player;
-        public Transform ShootEmitter;
-
-        public Transform RightMissileEmitter;  //Ракетный барабан правого борта
-        public Transform LeftMissileEmitter;   //Ракетный барабан левого борта
-        public GameObject MissilePrefab;
-        private bool MissileEmitterChange;                //Флаг смены ракетного барабана
-
-        public Transform enemyparent;   //Пустой объект который выполняет движение по планете и хранит в себе объект врага
-
         public int freezeProbabilityInPercent;  // Вероятность кастования умения в процентном соотношении
         public float freezeDuration;      //Длительность умения "Заморозка"
         public float freezeDamage;        //Урон заморозки за каждый фрэйм(примерно 2 милисекунды)
 
-        public int missileProbabilityInPercent;  //Вероятность запуска ракеты
-
-        public float enemyHealth;                  
-        public float enemyShield;
-
-        public GameObject BulletPrefab;
-        private Slider enemyHealthBar;   //Полоса здоровья
-        private Slider enemyShieldBar;   //Полоса щитов
-        public GameObject ShieldPrefab;  //Щит врага
+        public int missileProbabilityInPercent;  //Вероятность запуска ракеты            
 
 
+        private bool castFreeze;            //Сигнал кастования умения "Заморозка"
+        private bool launchMissile;         //Сигнал запуска ракеты
+        private bool launchDeathStorm;      //Muhahahahahahah
 
-        private float timeBetweenShots;    //Вспомогательный таймер для скорости стрельбы
-        public float startBetweenShots;    //Скорость(период) стрельбы 
+        private EnemyPursuit enemyPursuit;         //Скрипт Бати
+        private PlayerRotationScript playerStats;
 
-        public bool castFreeze;            //Сигнал кастования умения "Заморозка"
-        public bool launchMissile;         //Сигнал запуска ракеты
-        public bool launchDeathStorm;      //Muhahahahahahah
-
-        public int NumberOfLevel;          //Номер планеты 
-
-        private PlayerRotationScript playerStats;  //Связь со скриптом игрока
-        private EnemyPursuit enemyPursuit;         //Родитель
-
-        public int RandomDigit1;                    //Случайные числа для иллюзии вероятности
-        public int RandomDigit2;
-        public int RandomDigit3;
-
+        private int RandomDigit1;                    //Случайные числа для иллюзии вероятности
+        private int RandomDigit2;
+        private int RandomDigit3;
 
         //Переменные для хранения изначальных характеристик
         private float originStoppingDistance;
@@ -64,37 +36,34 @@ namespace Rockets
         [HideInInspector]
         public bool ShootActive;
 
-        
-        public float speed;
-
-        public float rotationSpeed;
         public float stoppingDistance;
         public float retreatingDistance;
 
-        void Awake()
-        {
-
-            player = GameObject.FindGameObjectWithTag("Player");
-            playerStats = player.GetComponent<PlayerRotationScript>();
-
-        }
         void Start()
         {
-            //NumberOfLevel = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().NumberOfLevel;
-
             tr = GetComponent<Transform>();
 
+            gameManager = GameManager.Instance;
 
-            enemyHealthBar = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<Slider>();
-            enemyShieldBar = GameObject.FindGameObjectWithTag("EnemyShieldBar").GetComponent<Slider>();
+            healthSlider = GameObject.FindGameObjectWithTag("EnemyHealthBar").GetComponent<Slider>();
+            shieldSlider = GameObject.FindGameObjectWithTag("EnemyShieldBar").GetComponent<Slider>();
+            shieldPrefab = GameObject.FindGameObjectWithTag("EnemyShield");
 
-            enemyPursuit = enemyparent.GetComponent<EnemyPursuit>();
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            playerStats = target.GetComponent<PlayerRotationScript>();
+            enemyPursuit = parent.GetComponent<EnemyPursuit>();
 
             enemyPursuit.stoppingDistance = stoppingDistance;
             enemyPursuit.retreatingDistance = retreatingDistance;
             enemyPursuit.speed = speed;
             enemyPursuit.rotationSpeed = rotationSpeed;
 
+            healthSlider.value = startHealth;
+            shieldSlider.value = startShield;
+            health = startHealth;
+            shield = startShield;
+            speed = startSpeed;
+            rotationSpeed = startRotationSpeed;
 
             originStoppingDistance = stoppingDistance;     //Сохраняем изначальную дистанцию остановки
             originRetreatingDistance = retreatingDistance; //И дистанцию отступления
@@ -103,12 +72,12 @@ namespace Rockets
             originMissileProbability = missileProbabilityInPercent;
             originFreezeProbability = freezeProbabilityInPercent;
 
-            ShieldPrefab.SetActive(true); //Активируем щиты в начале
+            shieldPrefab.SetActive(true); //Активируем щиты в начале
 
             timeBetweenShots = startBetweenShots;
             //timeBetweenLaunches = startBetweenLaunches;
 
-            tr.rotation = enemyparent.rotation; //На всякий случай переприсваиваем напраление вращения родителя
+            tr.rotation = parent.transform.rotation; //На всякий случай переприсваиваем напраление вращения родителя
 
             castFreeze = false;                 //В начале не кастуем умений
 
@@ -121,16 +90,15 @@ namespace Rockets
         void Update()
         {
             /* Здесь можно подключить тот или иной общий стиль поведения :*/
-            if (gameObject.CompareTag("FirstBoss"))
+            if (gameManager.NumberOfLevel == 0)
             {
-
                 Enemy1Behaviour();
             }
-            if (gameObject.CompareTag("SecondBoss"))
+            if (gameManager.NumberOfLevel == 1)
             {
                 Enemy2Behaviour();
             }
-            if (gameObject.CompareTag("ThirdBoss"))
+            if (gameManager.NumberOfLevel == 2)
             {
                 Enemy3Behaviour();
             }
@@ -164,7 +132,7 @@ namespace Rockets
 
         public void Enemy1Behaviour()
         {
-            if (enemyHealth <= 50)
+            if (health <= 50)
             {
                 startBetweenShots = 1.5f;
                 speed = originSpeed * 1.5f;
@@ -177,7 +145,7 @@ namespace Rockets
         public void Enemy2Behaviour()
         {
             /* Добавляем агрессии в поведение противника */
-            if (enemyHealth <= 50)
+            if (health <= 50)
             {
                 startBetweenShots = 0.5f;
                 speed = originSpeed * 1.5f;
@@ -202,7 +170,7 @@ namespace Rockets
 
         public void Enemy3Behaviour()
         {
-            if (enemyHealth <= 80 && enemyHealth > 50)
+            if (health <= 80 && health > 50)
             {
                 startBetweenShots = 0.5f;
                 speed = originSpeed * 1.5f;
@@ -212,7 +180,7 @@ namespace Rockets
                 freezeProbabilityInPercent = (int)(originFreezeProbability * 1.2f);
                 missileProbabilityInPercent = (int)(originMissileProbability * 1.2f);
             }
-            else if (enemyHealth <= 50 && enemyHealth > 10)
+            else if (health <= 50 && health > 10)
             {
                 startBetweenShots = 0.3f;
                 speed = originSpeed * 1.5f;
@@ -222,7 +190,7 @@ namespace Rockets
                 freezeProbabilityInPercent = (int)(originFreezeProbability * 1.4f);
                 missileProbabilityInPercent = (int)(originMissileProbability * 1.4f);
             }
-            else if (enemyHealth <= 10)
+            else if (health <= 10)
             {
                 startBetweenShots = 0.1f;
                 speed = originSpeed * 1.5f;
@@ -246,12 +214,12 @@ namespace Rockets
             }
         }
 
-        public void Shoot()
+        public override void Shoot()
         {
-            GameObject bulletObject = ObjectPoolingManager.Instance.GetEnemyBullet(BulletPrefab);  //Вызываем пулю из пула:)
-            bulletObject.transform.position = ShootEmitter.position;
+            GameObject bulletObject = ObjectPoolingManager.Instance.GetEnemyBullet(bulletPrefab);  //Вызываем пулю из пула:)
+            bulletObject.transform.position = shootEmitter.position;
             //bulletObject.transform.up = ShootEmitter.up;                                              //Ставим её на позицию выстрелов
-            bulletObject.transform.forward = ShootEmitter.forward;                                    //Направляем по направлению движения врага
+            bulletObject.transform.forward = shootEmitter.forward;                                    //Направляем по направлению движения врага
 
         }
 
@@ -286,28 +254,28 @@ namespace Rockets
         }
 
         /* Функция получения урона от пули игрока */
-        public void BulletDamage(float playerBulletDamage, int shieldDamageBoost)
+        public override void BulletDamage(float playerBulletDamage, int shieldDamageBoost)
         {
 
-            if (ShieldPrefab.activeInHierarchy)
+            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
             {
                 //Debug.Log("EnemyShieldDamaged!");
-                enemyShield -= (playerBulletDamage * shieldDamageBoost);  //Если щиты активны то перераспределяем урон на них
-                enemyShieldBar.value = enemyShield;
-                if (enemyShield <= 0f)
+                shield -= (playerBulletDamage * shieldDamageBoost);  //Если щиты активны то перераспределяем урон на них
+                shieldSlider.value = shield;
+                if (shield <= 0f)
                 {
-                    enemyShieldBar.value = 0f;
-                    ShieldPrefab.SetActive(false);                        //Если щит исчерпался - выключаем его
+                    shieldSlider.value = 0f;
+                    shieldPrefab.SetActive(false);                        //Если щит исчерпался - выключаем его
                 }
             }
-            else if (gameObject.activeInHierarchy)
+            else if (gameObject != null && gameObject.activeInHierarchy)
             {
-                enemyHealth -= playerBulletDamage;                        //Если нет щитов и объект ещё жив - отнимаем здоровье
-                enemyHealthBar.value = enemyHealth;
+                health -= playerBulletDamage;                        //Если нет щитов и объект ещё жив - отнимаем здоровье
+                healthSlider.value = health;
 
-                if (enemyHealth <= 0f)
+                if (health <= 0f)
                 {
-                    enemyHealthBar.value = 0f;
+                    healthSlider.value = 0f;
                     gameObject.SetActive(false);                          //Уничтожение объекта
                 }
 
@@ -319,26 +287,26 @@ namespace Rockets
 
 
         /* Функция получения урона от метеорита */
-        public void MeteorDamage(float meteorDamage, int shieldDamageBoost)
+        public override void MeteorDamage(float meteorDamage, int shieldDamageBoost)
         {
-            if (ShieldPrefab.activeInHierarchy)
+            if (shieldPrefab.activeInHierarchy)
             {
-                enemyShield -= (meteorDamage * shieldDamageBoost);
-                enemyShieldBar.value = enemyShield;
-                if (enemyShield <= 0f)
+                shield -= (meteorDamage * shieldDamageBoost);
+                shieldSlider.value = shield;
+                if (shield <= 0f)
                 {
-                    enemyShieldBar.value = 0f;
-                    ShieldPrefab.SetActive(false);
+                    shieldSlider.value = 0f;
+                    shieldPrefab.SetActive(false);
                 }
             }
             else if (gameObject.activeInHierarchy)
             {
-                enemyHealth -= meteorDamage;
-                enemyHealthBar.value = enemyHealth;
+                health -= meteorDamage;
+                healthSlider.value = health;
 
-                if (enemyHealth <= 0f)
+                if (health <= 0f)
                 {
-                    enemyHealthBar.value = 0f;
+                    healthSlider.value = 0f;
                     gameObject.SetActive(false);                          //Уничтожение объекта
                 }
             }
@@ -346,38 +314,37 @@ namespace Rockets
 
 
         /* Функция получения урона от ракеты игрока */
-        public void MissileDamage(float playerMissileDamage, int shieldDamageBoost)
+        public override void MissileDamage(float playerMissileDamage, int shieldDamageBoost)
         {
 
-            if (ShieldPrefab.activeInHierarchy)
+            if (shieldPrefab.activeInHierarchy)
             {
-                enemyShield -= (playerMissileDamage * shieldDamageBoost);
-                enemyShieldBar.value = enemyShield;
-                if (enemyShield <= 0f)
+                shield -= (playerMissileDamage * shieldDamageBoost);
+                shieldSlider.value = shield;
+                if (shield <= 0f)
                 {
-                    enemyShieldBar.value = 0f;
-                    ShieldPrefab.SetActive(false);
+                    shieldSlider.value = 0f;
+                    shieldPrefab.SetActive(false);
                 }
             }
             else if (gameObject.activeInHierarchy)
             {
-                enemyHealth -= playerMissileDamage;
-                enemyHealthBar.value = enemyHealth;
+                health -= playerMissileDamage;
+                healthSlider.value = health;
 
-                if (enemyHealth <= 0f)
+                if (health <= 0f)
                 {
-                    enemyHealthBar.value = 0f;
+                    healthSlider.value = 0f;
                     gameObject.SetActive(false);                          //Уничтожение объекта
                 }
             }
         }
 
-        //Функция запуска ракеты
-        public void LaunchMissile()
+        public override void LaunchMissile()
         {
             if (gameObject.activeInHierarchy)
             {
-                GameObject missileObject = ObjectPoolingManager.Instance.GetBossMissile(MissilePrefab);
+                GameObject missileObject = ObjectPoolingManager.Instance.GetBossMissile(missilePrefab);
 
 
                 //Меняем борт запуска

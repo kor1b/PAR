@@ -7,13 +7,14 @@ namespace Rockets
     public class MeteorScript : MonoBehaviour
     {
 
-        public GameObject ShadowPrefab;  //"Тень" метеорита
+        protected GameObject Shadow;  //"Тень" метеорита
+        public GameObject ShadowPrefab;
 
         Ray directionRay;                //Луч для определения места падения
         RaycastHit MeteorFallOnPlace;    //Место падения
         int mask = 8;                    //Маска, слой для метеорита
 
-        public float distance = 150f;    //Дистанция спавна
+        public float distance = 10f;    //Дистанция спавна
 
         bool shadowFlag;                 //Флаг создания тени
 
@@ -24,7 +25,10 @@ namespace Rockets
         void OnEnable()
         {
             shadowFlag = true;                  //Разрешаем создать тень, как только появляется метеорит
-            ShadowPrefab.SetActive(false);      //Не показываем тень раньше времени
+
+            
+            if (Shadow != null)
+            Shadow.SetActive(false);      //Не показываем тень раньше времени
         }
         void Update()
         {
@@ -45,12 +49,13 @@ namespace Rockets
                     if (shadowFlag)
                     {
                         //Debug.Log("SurfaceDetected and Shadow is active!");
-                        ShadowPrefab.SetActive(true);
+                        Shadow = ObjectPoolingManager.Instance.GetShadow(ShadowPrefab);
+                        Shadow.SetActive(true);
                         shadowFlag = false;
                     }
 
-                    ShadowPrefab.transform.position = fallingPos;
-                    ShadowPrefab.transform.rotation = rot;
+                    Shadow.transform.position = fallingPos;
+                    Shadow.transform.rotation = rot;
                 }
 
                 //Debug.Log("SomethingtDetected!");
@@ -59,7 +64,6 @@ namespace Rockets
             {
 
             }
-
 
         }
     }

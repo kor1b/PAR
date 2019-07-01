@@ -5,23 +5,19 @@ using UnityEngine;
 
 namespace Rockets
 {
-    public class EnemyPursuit : MonoBehaviour
+    public class EnemyPursuit : Movement
     {
+        [HideInInspector]
         public Rigidbody player;
         Rigidbody rb;
         Transform tr;
 
-
-        [HideInInspector]
-        public float speed;
         [HideInInspector]
         public float rotationSpeed;
         [HideInInspector]
         public float stoppingDistance;
         [HideInInspector]
         public float retreatingDistance;
-
-        private Vector3 movement;
 
         private Quaternion moveRotation;
 
@@ -38,6 +34,15 @@ namespace Rockets
         }
         void Update()
         {
+            Rotate();
+        }
+        void FixedUpdate()
+        {
+            Move();
+        }
+
+        public override void Rotate()
+        {
             if (player.gameObject.activeInHierarchy)
             {
                 moveRotation = Quaternion.LookRotation((player.transform.position - tr.position) / 2, tr.up);  //Нахоим нужное направление поворота на цель
@@ -46,11 +51,10 @@ namespace Rockets
                 movement = tr.forward * speed * Time.deltaTime;  //Движение происходит вперёд
             }
         }
-        void FixedUpdate()
+        public override void Move()
         {
-
             /* Двигаемся через физику, т.к. нас притягивает планета. Задаём характер движения в зависимости от расстояния до игрока */
-            if (player.gameObject.activeInHierarchy)
+            if (player.gameObject != null && player.gameObject.activeInHierarchy)
             {
                 if (Vector3.Distance(tr.position, player.position) >= stoppingDistance)
                 {

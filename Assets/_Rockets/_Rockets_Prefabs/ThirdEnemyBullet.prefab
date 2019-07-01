@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4612180829802781231}
   - component: {fileID: 7928029356425694366}
   - component: {fileID: 4089472631211138853}
-  - component: {fileID: 3528620714788613349}
   - component: {fileID: 125924787234079816}
   - component: {fileID: 3667749848381738480}
   - component: {fileID: 1076963477980631617}
+  - component: {fileID: 2346017211159723634}
   m_Layer: 0
   m_Name: ThirdEnemyBullet
   m_TagString: ThirdBossBullet
@@ -95,31 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3528620714788613349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440178849131039611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e03f8dc0632a1a944b96157593e77174, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 6
-  lifeDuration: 2
-  player: {fileID: 0}
-  enemy: {fileID: 5828766044199451964, guid: 31ca6ab2db5146447ac872e8cf48da15, type: 3}
-  NumberOfLevel: 2
-  ShipPrefab: {fileID: 90139791896333306, guid: 31ca6ab2db5146447ac872e8cf48da15,
-    type: 3}
-  EnemyPrefab: {fileID: 90139791896333306, guid: 31ca6ab2db5146447ac872e8cf48da15,
-    type: 3}
-  bulletDamage: 20
-  shieldDamageBoost: 1
-  BulletTag: ThirdBossBullet
-  BossTag: ThirdBoss
 --- !u!54 &125924787234079816
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,8 +125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 9072561822459368170, guid: a43bffed3c9df0f468b090c42251cc13,
     type: 3}
-  gameController: {fileID: 0}
-  NumberOfLevel: 0
 --- !u!65 &1076963477980631617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -165,3 +138,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1, y: 1.1, z: 1.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2346017211159723634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440178849131039611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad41ab00f73a683448df302f199580d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  damage: 10
+  shieldDamageBoost: 2
+  lifeTime: 4
+  player: {fileID: 0}

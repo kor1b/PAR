@@ -8,23 +8,12 @@ namespace Rockets
     {
 
         public float gravity = -12;  //Сила, с которой планета будет притягивать объекты с весом
-        GameManager gameController;
+        public int NumberOfLevel;
+
         void Awake()
         {
-            gameController = GameManager.Instance;
-
-            if (gameObject.CompareTag("FirstPlanet"))
-            {
-                gameController.NumberOfLevel = 0;
-            }
-            else if (gameObject.CompareTag("SecondPlanet"))
-            {
-                gameController.NumberOfLevel = 1;
-            }
-            else if (gameObject.CompareTag("ThirdPlanet"))
-            {
-                gameController.NumberOfLevel = 2;
-            }
+            if (this.gameObject.CompareTag("Planet"))
+            GameManager.Instance.NumberOfLevel = NumberOfLevel; 
         }
         public void Attract(Transform playerTransform)
         { 

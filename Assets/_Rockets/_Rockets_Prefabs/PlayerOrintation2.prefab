@@ -550,7 +550,7 @@ Transform:
   m_GameObject: {fileID: 4674053759245099582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 14, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children:
   - {fileID: 599766641823643103}
   m_Father: {fileID: 0}
@@ -568,8 +568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6281d96799cef4c49b4576520d1973e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 858165986475730373}
-  joystick: {fileID: 0}
 --- !u!114 &6274479829814873574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,8 +581,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attractorPlanet: {fileID: 0}
-  gameController: {fileID: 0}
-  NumberOfLevel: 0
 --- !u!54 &4439602623987386102
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -767,7 +763,7 @@ GameObject:
   - component: {fileID: 111625302534187537}
   m_Layer: 12
   m_Name: ShotEmitter
-  m_TagString: Untagged
+  m_TagString: playerEmitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 122
@@ -859,27 +855,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0b923fdf291cc4c81108832f8616d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  ShootEmitter: {fileID: 111625302534187537}
+  startHealth: 100
+  health: 0
+  startShield: 100
+  shield: 0
+  startSpeed: 1.3
+  speed: 0
+  startRotationSpeed: 0
+  rotationSpeed: 0
+  startBetweenShots: 2
   RightMissileEmitter: {fileID: 538889430558755208}
   LeftMissileEmitter: {fileID: 2414385208217888191}
-  BulletPrefab: {fileID: 0}
-  ShieldPrefab: {fileID: 2234940007247657240}
-  MissilePrefab: {fileID: 0}
-  Enemy: {fileID: 0}
+  shootEmitter: {fileID: 111625302534187537}
+  MissilePrefab: {fileID: 2961741451068695357, guid: af052133ee3ccf347b8900308b9ce1f4,
+    type: 3}
+  bulletPrefab: {fileID: 8229745315883406381, guid: 0607642327c79fe4c858b7233eb6892a,
+    type: 3}
+  parent: {fileID: 0}
+  joystick: {fileID: 0}
   FrostAnimationEffect: {fileID: 0}
   PetrifiedAnimationEffect: {fileID: 0}
-  gameController: {fileID: 0}
   freezeRotation: 0
   Win: 0
-  moveSpeed: 4
-  MissilesStorage: 3
+  ShieldRecoveryDelay: 5
+  ShieldRecoveryValue: 0.1
   currentMissileAmount: 0
-  playerStartHealth: 115
-  playerStartShield: 100
-  ShieldRecoveryDelay: 12
-  ShieldRecoveryValue: 0.15
-  startBetweenShots: 0.7
+  startMissileAmount: 3
 --- !u!1 &5660364852281306796
 GameObject:
   m_ObjectHideFlags: 0
