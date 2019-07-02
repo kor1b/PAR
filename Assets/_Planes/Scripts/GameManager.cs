@@ -28,7 +28,9 @@ namespace Planes
         private Button left;
         [SerializeField] [Tooltip("Выделенное положение кнопок")]
         private Button right;
-        
+        [SerializeField] [Tooltip("Окошко с завершением игры")]
+        private GameObject gameOverMenu;
+
         private float startGameTime = 3f; //время, которое запускается игра (время, пока отсчитывается таймер)
         public static bool gameIsGoing = false; //указывает, идет ли игра в данный момент
         public static bool countdownGameStarted = false; //начался ли обратный отсчет
@@ -38,7 +40,7 @@ namespace Planes
         //итоги игры
         [HideInInspector]
         public bool gameEnded = false; //закончилась ли игра
-        private int win; //результат игры: 0 - вышел в начале, 1 - победа, 2 - поражение
+        private int win; //результат игры: 0 - вышел в начале, 1 - победа, 2 - поражение? -1 - вышел с потерей прогресса
         public float timeOfGame = 0f; //длительность игры
         
         //Подсчет монеток (не реализован до конца)
@@ -131,16 +133,24 @@ namespace Planes
                 Debug.Log("You won!");
             }
             gameEnded = true;
-            //gameOverMenu.SetActive(true);
-            //GameOverManager.Instance.SetValues(win, gameTime, CountCoins());
             //GameOverManager.Instance.SetPlanesPrefs(win);
             Debug.Log("Your Score: " + CountCoins());
+         //   StartCoroutine(CallGameOverScreen());
+            Invoke("CallGameOverScreen", 3f);
+        }
+
+
+        void CallGameOverScreen()
+        {
+      //      yield return new WaitForSeconds(3f);
+            gameOverMenu.SetActive(true);
+            GameOverManager.Instance.SetValues(win, timeOfGame, CountCoins());
         }
 
         private int CountCoins () //подсчет монеток за уровень; не реализовано
         {
             int coins = 0;
-            float coefficient = 0.5f;
+            float coefficient = 1f;
             coins = Convert.ToInt32(
              Math.Round(
                 Convert.ToDouble(
@@ -248,27 +258,14 @@ namespace Planes
             countdownGameStarted = false;
         }
 
-      //  public void ExitGame() //завершает игру; не реализовано
-    //    {
-    //        Debug.Log("Player exit");
-            /* if (win == -1)
-             {
-                 //обнуление прогресса
-                 //выход в меню
-             }
-             else if (win == 0)
-             {
-                 //выход в меню
-             }*/
-
-            //
+        public void ExitGame() //завершает игру, если игрок вышел
+        {
+            Debug.Log("Player exit");
             //enable gameover menu
-            //gameOverMenu.SetActive(true);
+            gameOverMenu.SetActive(true);
             //set gameover board values
-            //GameOverManager.Instance.SetValues(win, gameTime, 0);
-            //GameOverManager.Instance.SetPlanesPrefs(win);
-       // }
-
-
+            GameOverManager.Instance.SetValues(win, timeOfGame, 0);
+            //GameOverManager.Instance.SetPlanePrefs(win);
+        }
     }
 }

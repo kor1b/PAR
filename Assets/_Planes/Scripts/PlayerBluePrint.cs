@@ -88,17 +88,17 @@ namespace Planes
                 stopAudio = true;
             }
         }
-
+        /*
         override protected void Death() //если игрок умер
         {
             Debug.Log("Player died");
-            GameManager.Instance.EndGame(GetComponent<CharacterPrint>()); //отправляем данные GameManager
             gameObject.SetActive(false); //делаем объект неактивным
             GameObject explosion = Instantiate(ObjectPoolingManager.instance.Explosion);
             explosion.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position;
             Destroy(explosion, 7f);
+            GameManager.Instance.EndGame(GetComponent<CharacterPrint>()); //отправляем данные GameManager
         }
-
+        */
         private void OnTriggerEnter(Collider other) //столкновение с другим самолетом
         {
             if (takeoffMode)

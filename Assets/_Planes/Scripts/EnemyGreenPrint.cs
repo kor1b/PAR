@@ -159,7 +159,7 @@ namespace Planes
             }
             stopAudio = true; //после каждого выстрела собираемся отключить аудио
         }
-
+        /*
         override protected void Death()
         {
             Debug.Log("Enemy died");
@@ -169,6 +169,6 @@ namespace Planes
             explosion.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position;
             explosion.GetComponent<ParticleSystem>().Play();
             Destroy(explosion, 7f);
-        }
+        }*/
     }
 }

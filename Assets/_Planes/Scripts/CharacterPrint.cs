@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace Planes
 {
@@ -63,6 +64,17 @@ namespace Planes
             _sliderHealth.value = health; //обновляем слайдер
         }
 
-        abstract protected void Death(); //вызывается при смерти персонажа
+        void Death()
+        {
+            gameObject.SetActive(false);
+            GameObject explosion = Instantiate(ObjectPoolingManager.instance.Explosion);
+            explosion.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position;
+            explosion.GetComponent<ParticleSystem>().Play();
+            Destroy(explosion, 7f);
+            GameManager.Instance.EndGame(GetComponent<CharacterPrint>()); //отчитываемся GameManager
+        }
+
+
+      //  abstract protected void Death(); //вызывается при смерти персонажа
     }
 }
