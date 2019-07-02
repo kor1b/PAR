@@ -56,6 +56,10 @@ namespace Planes
 
         private void Update()
         {
+            if (!GameManager.gameIsGoing || _playerScript.takeoffMode)
+            {
+                return;
+            }
             if (enabling) //нанесение урона
             {
                 timer += Time.deltaTime;
@@ -77,6 +81,10 @@ namespace Planes
 
         private void FixedUpdate()
         {
+            if (!GameManager.gameIsGoing || _playerScript.takeoffMode)
+            {
+                return;
+            }
             if (inSphere && _player.position.y <= 0) //если игрок в допустимой зоне-сфере, но ниже купюры
             {
                 disabling = false; //прекратить убирать красный шар

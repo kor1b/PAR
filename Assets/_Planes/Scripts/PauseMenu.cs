@@ -1,34 +1,35 @@
 ﻿using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
-namespace Planes
+public class PauseMenu : MonoBehaviour
 {
-    public class PauseMenu : MonoBehaviour
+    public static PauseMenu Instance;
+
+    #region Singleton
+    private void Awake()
     {
-        public static PauseMenu Instance;
-        public GameObject targetLostScreen;
-        public Image banknote;
+        if (Instance != null)
+            return;
+        Instance = this;
+    }
+    #endregion
 
-        private void Awake()
-        {
-            #region Singleton
-            if (Instance != null)
-                return;
-            Instance = this;
-            #endregion
-        }
+    public void PauseOn()
+    {
+        Time.timeScale = 0;
+        Racing.GameManager.Instance?.StopGame();
+        Planes.GameManager.Instance?.StopGame();
+        Rockets.GameManager.Instance?.StopGame();
+    }
 
-        public void PauseOn()
-        {
-            Time.timeScale = 0;
-            GameManager.instance.StopGame();
-        }
+    public void PauseOff()
+    {
+        Time.timeScale = 1;
 
-        public void PauseOff()
-        {
-            Time.timeScale = 1;
-            StartCoroutine(GameManager.instance.StartGame());
-        }
+        if (Racing.GameManager.Instance != null)
+            StartCoroutine(Racing.GameManager.Instance.StartCountdown());
+        else if (Planes.GameManager.Instance != null)
+            StartCoroutine(Planes.GameManager.Instance.StartGame());
+        else if (Rockets.GameManager.Instance != null)
+            StartCoroutine(Rockets.GameManager.Instance.StartGame());
     }
 }

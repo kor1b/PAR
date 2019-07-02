@@ -100,10 +100,8 @@ using Vuforia;
             foreach (var component in canvasComponents)
                 component.enabled = true;
 
-            //IsReady.Instance.CheckPlayers();
-
-            Planes.PauseMenu.Instance.targetLostScreen.SetActive(false);
-            Planes.PauseMenu.Instance.PauseOff();
+            //pause off
+            PauseMenu.Instance.PauseOff();
         }
 
 
@@ -124,10 +122,8 @@ using Vuforia;
             // Disable canvas':
             foreach (var component in canvasComponents)
                 component.enabled = false;
-
-			//if (Planes.PauseMenu.Instance.targetLostScreen != null)
-            Planes.PauseMenu.Instance.targetLostScreen.SetActive(true);
-            Planes.PauseMenu.Instance.PauseOn();
+            //pause on
+            PauseMenu.Instance.PauseOn();
         }
 
         #endregion // PROTECTED_METHODS

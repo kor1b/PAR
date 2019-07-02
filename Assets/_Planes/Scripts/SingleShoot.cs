@@ -153,15 +153,14 @@ namespace Planes
             //запуск луча
             _shootRay.origin = _shootPoint.position;
             _shootRay.direction = _shootPoint.forward;
-            if(Physics.Raycast(_shootRay, out shootHit, range, shootableMask)) //считывание результатов
+            if (Physics.Raycast(_shootRay, out shootHit, range, shootableMask)) //считывание результатов
             {
-                CharacterPrint obj = shootHit.collider.GetComponentInParent<CharacterPrint>();
+                CharacterPrint obj = shootHit.collider.GetComponent<CharacterPrint>();
+                Debug.Log("CanDamage() " + obj);
+                //CharacterPrint obj = shootHit.collider.GetComponentInParent<CharacterPrint>();
                 if (obj != null)
                 {
-                    if (obj.isPlayer) //если впереди игрок, возвращаем true
-                    {
-                        return true;
-                    }
+                    return obj.isPlayer; //если впереди игрок, вернется true
                 }
             }
             return false;

@@ -22,6 +22,10 @@ namespace Planes
         
         private void Update()
         {
+            if(!GameManager.gameIsGoing)
+            {
+                return;
+            }
             timer += Time.deltaTime;
             if (shooting)
             { 

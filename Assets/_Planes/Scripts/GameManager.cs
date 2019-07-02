@@ -8,7 +8,7 @@ namespace Planes
 {
     public class GameManager : MonoBehaviour
     {
-        public static GameManager instance = null;
+        public static GameManager Instance = null;
 
         [Header("For Pause Function")]
         //таймер
@@ -16,9 +16,7 @@ namespace Planes
         private Animator timerTextAnim;
         [SerializeField] [Tooltip("Текст таймера")]
         private TextMeshProUGUI timerText;
-
-        private bool paused = false; //указывает, нажата ли пауза
-
+        
         [Header("Setting Menu Components")]
         [SerializeField] [Tooltip("положение кнопкок: 0 - джойстик слева, 1 - джойстик справа")]
         private int buttonPosition = 0; //положение кнопкок: 0 - джойстик слева, 1 - джойстик справа
@@ -41,20 +39,20 @@ namespace Planes
         [HideInInspector]
         public bool gameEnded = false; //закончилась ли игра
         private int win; //результат игры: 0 - вышел в начале, 1 - победа, 2 - поражение
-        private float timeOfGame = 0f; //длительность игры
+        public float timeOfGame = 0f; //длительность игры
         
         //Подсчет монеток (не реализован до конца)
         private CharacterPrint enemyInfo;
         private CharacterPrint playerInfo;
-        private int replay; //получить из PlayerPrefs
-        private float lastHighScore; //из PlayerPrefs
-        
+        // private int replay; //получить из PlayerPrefs
+        // private float lastHighScore; //из PlayerPrefs
+                
         private void Awake()
         {
             #region Singleton
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
             }
             else
             {
@@ -62,28 +60,20 @@ namespace Planes
             }
 			#endregion
             
-			Time.timeScale = 1;
-            if (PlayerPrefs.GetInt("SetControl") != buttonPosition) //если положение кнопок не соответсвует плеер префс, меняем их сразу
-            {
-                //меняем местами кнопки
-                float xTemp = _joystick.position.x;
-                _joystick.position = new Vector3(_fireSystem.position.x, _joystick.position.y, 0);
-                _fireSystem.position = new Vector3(xTemp, _fireSystem.position.y, 0);
-            }
-            buttonPosition = PlayerPrefs.GetInt("SetControl");
-            SetControl();
-            
             enemyInfo = GameObject.FindWithTag("Enemy").GetComponent<CharacterPrint>();
             playerInfo = GameObject.FindWithTag("Player").GetComponent<CharacterPrint>();
 
             Time.timeScale = 1;
-            paused = false;
-            StartCoroutine(StartGame());
+         //   StartCoroutine(StartGame());
+
+            SetControl();
+            SwapButtons();
+            timerText.text = "";
         }
 
         private void Update()
         {
-            if(gameIsGoing)
+            if (gameIsGoing) //считает длительность игры
             {
                 if (win == 0)
                 {
@@ -92,42 +82,17 @@ namespace Planes
                 timeOfGame += Time.deltaTime;
             }
         }
-
-        //ставит/убирает паузу при нажатии на кнопку
-        public void PauseButtonPressed()
-        {
-            if (paused) //если пауза нажата, а мы нажимаем кнопку, то отжимаем паузу
-            {
-                Debug.Log("Pause unpressed");
-                paused = false; //установка нового состояния паузы
-                PauseMenu.Instance.PauseOff(); //запускаем ход времени
-                return;
-            }
-            if (!paused)
-            {
-                Debug.Log("Pause pressed");
-                paused = true; //установка нового состояния паузы
-                PauseMenu.Instance.PauseOn(); //останавливаем ход времени
-                return;
-            }
-        }
-        
         
         public void SwapButtons()
         {
-            ChangeControl();
-            if (PlayerPrefs.HasKey("SetControl"))
+            Debug.Log("SwapButtons");
+            //меняем местами кнопки
+            if (PlayerPrefs.GetInt("SetControl", 0) != buttonPosition)
             {
-                if (PlayerPrefs.GetInt("SetControl") != buttonPosition)
-                {
-                    Debug.Log("SwapButtons");
-                    //меняем местами кнопки
-                    float xTemp = _joystick.position.x;
-                    _joystick.position = new Vector3(_fireSystem.position.x, _joystick.position.y, 0);
-                    _fireSystem.position = new Vector3(xTemp, _fireSystem.position.y, 0);
-                    //обновляем состояние переменной
-                    buttonPosition = SetBool(buttonPosition);
-                }
+                float xTemp = _joystick.position.x;
+                _joystick.position = new Vector3(_fireSystem.position.x, _joystick.position.y, 0);
+                _fireSystem.position = new Vector3(xTemp, _fireSystem.position.y, 0);
+                buttonPosition = SetBool(buttonPosition);
             }
         }
 
@@ -139,14 +104,14 @@ namespace Planes
                 return 0;
         }
 
-        public void SetControl()
+        public void SetControl() //устанавливает interactible кнопок в соответствии с их позицией
         {
             left.interactable = Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
             right.interactable = !Convert.ToBoolean(PlayerPrefs.GetInt("SetControl", 0));
         }
 
 
-        public void ChangeControl()
+        public void ChangeControl() //меняет значение в префс на противоположное
         {
             Debug.Log("ChangeControl");
             PlayerPrefs.SetInt("SetControl", SetBool(PlayerPrefs.GetInt("SetControl", 0)));
@@ -158,15 +123,11 @@ namespace Planes
             if (deadPlane.isPlayer) //если убит игрок
             {
                 win = 2;
-               /* GameObject enemyObj = GameObject.FindWithTag("Enemy");
-                CharacterPrint enemy = enemyObj.GetComponent<CharacterPrint>();*/
                 Debug.Log("You lost!");
             }
             else if (!deadPlane.isPlayer) //если убит враг
             {
                 win = 1;
-                //CharacterPrint player = GameObject.FindWithTag("Player").GetComponent<CharacterPrint>();
-               // score = (player.health + deadPlane.maxHealth) * coefficient;
                 Debug.Log("You won!");
             }
             gameEnded = true;
@@ -178,52 +139,67 @@ namespace Planes
 
         private int CountCoins () //подсчет монеток за уровень; не реализовано
         {
-            int coins;
-            float coefficient, lastHighScore;
-            int replay, playerLevel, openBossNumber;
-            coefficient = 0.2f;
-            replay = 1; //PlayerPrefs
-            playerLevel = 1; //PlayerPrefs
-            lastHighScore = 0; //PlayerPrefs
-            openBossNumber = 1; //PLayerPrefs
+            int coins = 0;
+            float coefficient = 0.5f;
             coins = Convert.ToInt32(
-            Math.Round(
-               Convert.ToDouble(
-                   (enemyInfo.maxHealth - enemyInfo.health + playerInfo.health) * coefficient * Math.Pow(2, -(replay - 1))
-                   )
-               )
-           );
-            if (enemyInfo.bossNumber - playerLevel >= 0)
+             Math.Round(
+                Convert.ToDouble(
+                    (enemyInfo.maxHealth - enemyInfo.health + playerInfo.health) * coefficient)
+                )
+            );
+            if (enemyInfo.level - playerInfo.level >= 0)
             {
-                coins *= enemyInfo.bossNumber - playerLevel + 1;
+                coins *= enemyInfo.level - playerInfo.level + 1;
             }
-            if (lastHighScore != 0 && timeOfGame < lastHighScore && playerInfo.health > 0)
-            {
-                coins += Convert.ToInt32(Math.Round(lastHighScore - timeOfGame));
-                if (enemyInfo.bossNumber - playerLevel >= 0)
-                {
-                    coins *= enemyInfo.bossNumber - playerLevel + 1;
-                }
-            }
-            if (openBossNumber == 3 && replay > 1)
-            {
-                coins = 1;
-            }
-            /*int coins = Convert.ToInt32(
-                Math.Round(
-                    Convert.ToDouble(
-                        (enemyInfo.maxHealth - enemyInfo.health + playerInfo.health) * coefficient * Math.Pow(2, replay - 1) * (enemyInfo.bossNumber - PlayerPrefs.GetInt("PlayerPlane") + 1) 
-                        )
+
+            #region ОЧЕНЬ_СЛОЖНО
+            /* 
+             float coefficient, lastHighScore;
+             int replay, playerLevel, openBossNumber;
+             coefficient = 0.2f;
+             replay = 1; //PlayerPrefs
+             playerLevel = 1; //PlayerPrefs
+             lastHighScore = 0; //PlayerPrefs
+             openBossNumber = 1; //PLayerPrefs
+             coins = Convert.ToInt32(
+             Math.Round(
+                Convert.ToDouble(
+                    (enemyInfo.maxHealth - enemyInfo.health + playerInfo.health) * coefficient * Math.Pow(2, -(replay - 1))
                     )
-                );
-            if (score > lastHighScore)
-            {
-                coins += Convert.ToInt32(Math.Round((score - lastHighScore) * (enemyInfo.bossNumber - PlayerPrefs.GetInt("PlayerPlane") + 1)));
-            }
-            if (enemyInfo.bossNumber == 3 && replay > 1)
-            {
-                coins = 1;
-            }*/
+                )
+            );
+             if (enemyInfo.bossNumber - playerLevel >= 0)
+             {
+                 coins *= enemyInfo.bossNumber - playerLevel + 1;
+             }
+             if (lastHighScore != 0 && timeOfGame < lastHighScore && playerInfo.health > 0)
+             {
+                 coins += Convert.ToInt32(Math.Round(lastHighScore - timeOfGame));
+                 if (enemyInfo.bossNumber - playerLevel >= 0)
+                 {
+                     coins *= enemyInfo.bossNumber - playerLevel + 1;
+                 }
+             }
+             if (openBossNumber == 3 && replay > 1)
+             {
+                 coins = 1;
+             }
+             /*int coins = Convert.ToInt32(
+                 Math.Round(
+                     Convert.ToDouble(
+                         (enemyInfo.maxHealth - enemyInfo.health + playerInfo.health) * coefficient * Math.Pow(2, replay - 1) * (enemyInfo.bossNumber - PlayerPrefs.GetInt("PlayerPlane") + 1) 
+                         )
+                     )
+                 );
+             if (score > lastHighScore)
+             {
+                 coins += Convert.ToInt32(Math.Round((score - lastHighScore) * (enemyInfo.bossNumber - PlayerPrefs.GetInt("PlayerPlane") + 1)));
+             }
+             if (enemyInfo.bossNumber == 3 && replay > 1)
+             {
+                 coins = 1;
+             }*/
+            #endregion
             return coins;
         }
 
@@ -272,9 +248,9 @@ namespace Planes
             countdownGameStarted = false;
         }
 
-        public void ExitGame() //завершает игру; не реализовано
-        {
-            Debug.Log("Player exit");
+      //  public void ExitGame() //завершает игру; не реализовано
+    //    {
+    //        Debug.Log("Player exit");
             /* if (win == -1)
              {
                  //обнуление прогресса
@@ -291,7 +267,7 @@ namespace Planes
             //set gameover board values
             //GameOverManager.Instance.SetValues(win, gameTime, 0);
             //GameOverManager.Instance.SetPlanesPrefs(win);
-        }
+       // }
 
 
     }

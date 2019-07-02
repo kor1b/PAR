@@ -69,7 +69,6 @@ namespace Planes
         void Awake()
         {
             isPlayer = false; //объект не является игроком
-            bossNumber = 3; //третий босс
             _sliderHealth = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
             _sliderHealth.maxValue = maxHealth;
             _sliderHealth.value = maxHealth;
@@ -245,7 +244,7 @@ namespace Planes
         override protected void Death()
         {
             Debug.Log("Enemy died");
-            GameManager.instance.EndGame(GetComponent<CharacterPrint>());
+            GameManager.Instance.EndGame(GetComponent<CharacterPrint>());
             gameObject.SetActive(false);
             GameObject explosion = Instantiate(ObjectPoolingManager.instance.Explosion);
             explosion.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position;

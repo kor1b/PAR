@@ -43,8 +43,6 @@ namespace Planes
         void Awake()
         {
             isPlayer = false; //объект не является игроком
-            bossNumber = 1; //первый босс
-            shootingPoints = GetComponentsInChildren<SingleShoot>();
             _sliderHealth = GameObject.FindWithTag("EnemyHealth").GetComponent<Slider>();
             _sliderHealth.maxValue = maxHealth;
             _sliderHealth.value = maxHealth;
@@ -126,6 +124,7 @@ namespace Planes
                 }
                 playerInRange = false; //чтобы после этого начать искать игрока заново
             }
+
             if (_shootAudio.isPlaying) //если аудио включено, значит мы стреляем
             {
                 audioDurrability += Time.deltaTime; //подсчитываем, как долго было включено аудио
@@ -164,7 +163,7 @@ namespace Planes
         override protected void Death()
         {
             Debug.Log("Enemy died");
-            GameManager.instance.EndGame(GetComponent<CharacterPrint>()); //отчитываемся GameManager
+            GameManager.Instance.EndGame(GetComponent<CharacterPrint>()); //отчитываемся GameManager
             gameObject.SetActive(false);
             GameObject explosion = Instantiate(ObjectPoolingManager.instance.Explosion);
             explosion.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position;

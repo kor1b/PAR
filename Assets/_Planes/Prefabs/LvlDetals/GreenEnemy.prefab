@@ -5926,6 +5926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f231640d113423145b1c9f5d9efa36b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
   maxHealth: 150
   health: 100
   timeBetweenShoots: 0.2
@@ -5966,6 +5967,7 @@ MonoBehaviour:
   EnemyFirstRotation: {x: 0, y: 0, z: 0}
   IslandFirstCoordinates: {x: 0, y: 0, z: 0}
   IslandFirstRotation: {x: 0, y: 0, z: 0}
+  animator: {fileID: 473066733715572906}
 --- !u!1 &8466942861274128362
 GameObject:
   m_ObjectHideFlags: 0

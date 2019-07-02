@@ -92,7 +92,7 @@ namespace Planes
         override protected void Death() //если игрок умер
         {
             Debug.Log("Player died");
-            GameManager.instance.EndGame(GetComponent<CharacterPrint>()); //отправляем данные GameManager
+            GameManager.Instance.EndGame(GetComponent<CharacterPrint>()); //отправляем данные GameManager
             gameObject.SetActive(false); //делаем объект неактивным
             GameObject explosion = Instantiate(ObjectPoolingManager.instance.Explosion);
             explosion.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position;

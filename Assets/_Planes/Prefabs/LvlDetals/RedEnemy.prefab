@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2391886811324020978}
   - component: {fileID: 823304388424434307}
   - component: {fileID: 823304388424434306}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: RedEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19606692c889bce4d8a05318a573f803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
   maxHealth: 500
   health: 100
   timeBetweenShoots: 0.7
@@ -187,7 +188,6 @@ MonoBehaviour:
   audioMinDurrability: 0.1
   _shootAudio: {fileID: 823304388046265506}
   isPlayer: 0
-  bossNumber: 0
   takeoffMode: 1
   standartSpeed: 70
   maxSpeed: 100
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 2391886811361283951}
   - component: {fileID: 2391886811361283948}
   - component: {fileID: 2391886811361283949}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5189,7 +5189,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2391886811748549313}
   - component: {fileID: 2391886811748549315}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Nose
   m_TagString: EnemyNose
   m_Icon: {fileID: 0}
@@ -5227,7 +5227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8295618290008088769}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5266,7 +5266,7 @@ GameObject:
   - component: {fileID: 6663460101477332016}
   - component: {fileID: 6663460101480723478}
   - component: {fileID: 6663460101479626454}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u0422\u0435\u043B\u043E"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5343,7 +5343,7 @@ GameObject:
   - component: {fileID: 6663460101477332018}
   - component: {fileID: 6663460101480723472}
   - component: {fileID: 6663460101479626448}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u0422\u0440\u0443\u0431\u0430"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5420,7 +5420,7 @@ GameObject:
   - component: {fileID: 6663460101477332020}
   - component: {fileID: 6663460101480723482}
   - component: {fileID: 6663460101479626458}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u041B\u0438\u043D\u0437\u0430"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5497,7 +5497,7 @@ GameObject:
   - component: {fileID: 6663460101477332022}
   - component: {fileID: 6663460101480723476}
   - component: {fileID: 6663460101479626452}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u041D\u043E\u0441"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5574,7 +5574,7 @@ GameObject:
   - component: {fileID: 6663460101477332024}
   - component: {fileID: 6663460101480723486}
   - component: {fileID: 6663460101479626462}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u0412\u0435\u0440\u0445"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5651,7 +5651,7 @@ GameObject:
   - component: {fileID: 6663460101477332026}
   - component: {fileID: 6663460101480723480}
   - component: {fileID: 6663460101479626456}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u0412\u0438\u043D\u0442"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5728,7 +5728,7 @@ GameObject:
   - component: {fileID: 6663460101477332030}
   - component: {fileID: 6663460101480723484}
   - component: {fileID: 6663460101479626460}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u0410\u043D\u0442\u0435\u043D\u0430"
   m_TagString: Untagged
   m_Icon: {fileID: 0}

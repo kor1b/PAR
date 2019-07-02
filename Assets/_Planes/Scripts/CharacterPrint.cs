@@ -5,6 +5,8 @@ namespace Planes
 {
     public abstract class CharacterPrint : MonoBehaviour
     {
+        [Tooltip("Уровень персонажа")]
+        public int level;
         [Header("Health")] [Tooltip("Максимальное здоровье")]
         public float maxHealth = 100f;
         [Tooltip("Здоровье в данный момент")]
@@ -24,8 +26,6 @@ namespace Planes
         [HideInInspector]
         public bool isPlayer; //является ли наследник класса игроком (true) или врагом (false)
         [HideInInspector]
-        public int bossNumber; //номер босса
-        [HideInInspector]
         public bool takeoffMode = true; //когда влючено, функции Update не выполняются (перехват контроля анимацией взлета)
         protected float effectsDisplayTime = 0.2f; //время отображения эффектов стрельбы
         protected Slider _sliderHealth; //слайдер, показывающий здоровье
@@ -38,7 +38,7 @@ namespace Planes
 
         virtual public void TakeDamage(float damage) //отнять у персонажа здоровье
         {
-            if(GameManager.instance.gameEnded)
+            if(GameManager.Instance.gameEnded)
             {
                 return;
             }
