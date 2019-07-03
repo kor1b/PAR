@@ -54,7 +54,32 @@ namespace Rockets
         protected Transform tr;
         protected GameObject gm;
 
-        public abstract void BulletDamage(float BulletDamage, int shieldDamageBoost);
+        public virtual void BulletDamage(float BulletDamage, int shieldDamageBoost)
+        {
+            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
+            {
+                //Debug.Log("EnemyShieldDamaged!");
+                shield -= (BulletDamage * shieldDamageBoost);  //Если щиты активны то перераспределяем урон на них
+                shieldSlider.value = shield;
+                if (shield <= 0f)
+                {
+                    shieldSlider.value = 0f;
+                    shieldPrefab.SetActive(false);                        //Если щит исчерпался - выключаем его
+                }
+            }
+            else if (gameObject != null && gameObject.activeInHierarchy)
+            {
+                health -= BulletDamage;                        //Если нет щитов и объект ещё жив - отнимаем здоровье
+                healthSlider.value = health;
+
+                if (health <= 0f)
+                {
+                    healthSlider.value = 0f;
+                    gameObject.SetActive(false);                          //Уничтожение объекта
+                }
+
+            }
+        }
         public abstract void MissileDamage(float MissileDamage, int shieldDamageBoost);
         public abstract void MeteorDamage(float meteorDamage, int shieldDamageBoost);
         public abstract void Shoot();
@@ -85,8 +110,6 @@ namespace Rockets
     {
         [Header("Movement")]
         public float rotationSpeed;
-
-        [Header("Damage")]
 
         [Header("Behaviour")]
         public float searchTimeDelay;

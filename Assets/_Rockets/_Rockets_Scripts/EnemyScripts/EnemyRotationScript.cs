@@ -123,12 +123,6 @@ namespace Rockets
                 }
             }
         }
-        void FixedUpdate()
-        {
-
-
-        }
-
 
         public void Enemy1Behaviour()
         {
@@ -254,36 +248,36 @@ namespace Rockets
         }
 
         /* Функция получения урона от пули игрока */
-        public override void BulletDamage(float playerBulletDamage, int shieldDamageBoost)
-        {
+        //public override void BulletDamage(float playerBulletDamage, int shieldDamageBoost)
+        //{
+        //    base.BulletDamage(playerBulletDamage, shieldDamageBoost);
+        //    //if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
+        //    //{
+        //    //    //Debug.Log("EnemyShieldDamaged!");
+        //    //    shield -= (playerBulletDamage * shieldDamageBoost);  //Если щиты активны то перераспределяем урон на них
+        //    //    shieldSlider.value = shield;
+        //    //    if (shield <= 0f)
+        //    //    {
+        //    //        shieldSlider.value = 0f;
+        //    //        shieldPrefab.SetActive(false);                        //Если щит исчерпался - выключаем его
+        //    //    }
+        //    //}
+        //    //else if (gameObject != null && gameObject.activeInHierarchy)
+        //    //{
+        //    //    health -= playerBulletDamage;                        //Если нет щитов и объект ещё жив - отнимаем здоровье
+        //    //    healthSlider.value = health;
 
-            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
-            {
-                //Debug.Log("EnemyShieldDamaged!");
-                shield -= (playerBulletDamage * shieldDamageBoost);  //Если щиты активны то перераспределяем урон на них
-                shieldSlider.value = shield;
-                if (shield <= 0f)
-                {
-                    shieldSlider.value = 0f;
-                    shieldPrefab.SetActive(false);                        //Если щит исчерпался - выключаем его
-                }
-            }
-            else if (gameObject != null && gameObject.activeInHierarchy)
-            {
-                health -= playerBulletDamage;                        //Если нет щитов и объект ещё жив - отнимаем здоровье
-                healthSlider.value = health;
+        //    //    if (health <= 0f)
+        //    //    {
+        //    //        healthSlider.value = 0f;
+        //    //        gameObject.SetActive(false);                          //Уничтожение объекта
+        //    //    }
 
-                if (health <= 0f)
-                {
-                    healthSlider.value = 0f;
-                    gameObject.SetActive(false);                          //Уничтожение объекта
-                }
-
-            }
+        //    //}
 
 
 
-        }
+        //}
 
 
         /* Функция получения урона от метеорита */

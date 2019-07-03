@@ -60,10 +60,6 @@ namespace Rockets
 
                 //Debug.Log("SomethingtDetected!");
             }
-            else
-            {
-
-            }
 
         }
     }

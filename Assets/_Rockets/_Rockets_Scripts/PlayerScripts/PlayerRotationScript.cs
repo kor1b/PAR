@@ -153,31 +153,32 @@ namespace Rockets
     public override void BulletDamage(float enemyBulletDamage, int shieldDamageBoost)
     {
 
-            if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
-            {
-                //Debug.Log("PlayerShieldDamaged!");
-                shield -= (enemyBulletDamage * shieldDamageBoost);
-                shieldSlider.value = shield;
-                if (shield <= 0f)
-                {
-                    shieldSlider.value = 0f;
-                    shieldPrefab.SetActive(false);
-                }
-            }
-            else if (gameObject != null && gameObject.activeInHierarchy)
-            {
-                health -= enemyBulletDamage;
-                healthSlider.value = health;
+            //if (shieldPrefab != null && shieldPrefab.activeInHierarchy)
+            //{
+            //    //Debug.Log("PlayerShieldDamaged!");
+            //    shield -= (enemyBulletDamage * shieldDamageBoost);
+            //    shieldSlider.value = shield;
+            //    if (shield <= 0f)
+            //    {
+            //        shieldSlider.value = 0f;
+            //        shieldPrefab.SetActive(false);
+            //    }
+            //}
+            //else if (gameObject != null && gameObject.activeInHierarchy)
+            //{
+            //    health -= enemyBulletDamage;
+            //    healthSlider.value = health;
 
-            }
+            //}
 
-            if (health <= 0f)
-            {
-                healthSlider.value = 0f;
-                gameObject.SetActive(false);
+            //if (health <= 0f)
+            //{
+            //    healthSlider.value = 0f;
+            //    gameObject.SetActive(false);
 
-            }
-            else
+            //}
+            base.BulletDamage(enemyBulletDamage, shieldDamageBoost);
+            if (health > 0f)
             {
                 DamageInputFlag = true;
                 ShieldRecoveryTime = ShieldRecoveryDelay;
@@ -279,6 +280,8 @@ namespace Rockets
         /* Корутин влияния заморозки на игрока */
         IEnumerator FreezeDuration(float duration, float damagePerFrame)
         {
+            if (GameManager.countdownGameStarted)
+                yield return null;
             if (GameManager.gameIsGoing && !GameManager.countdownGameStarted)
             {
                 speed = 0.2f;                       //Замедлем игрока
